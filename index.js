@@ -1,8 +1,7 @@
 /**
  * Created by alex on 08.07.17.
  */
-const Constants = require('./constants')
 
-exports.default = Constants;
+exports.Constants = require('./constants')
 
-module.exports = exports;
+module.exports = exports
