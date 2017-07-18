@@ -16,4 +16,8 @@ exports.PREGAME_PHASES = ['PREGAME']; // TODO: SHOULD BE IS - SCHEDULED or INPRO
 exports.SHARED_GROUP_CODE = 'SHARED';
 exports.TRIGGER_CREATE_NEW_GROUP = 'CREATE_NEW';
 
+exports.SEASON_PRE = 'pre';
+exports.SEASON_REG = 'reg';
+exports.SEASON_PST = 'pst';
+
 module.exports = exports;
