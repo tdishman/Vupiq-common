@@ -3,4 +3,6 @@
  */
 const Constants = require('./constants')
 
-export default Constants;
+exports.default = Constants;
+
+module.exports = exports;
