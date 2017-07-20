@@ -1,11 +1,11 @@
-var playTypes = require('../constants').playTypes;
+import { playTypes } from '../constants';
 
 const {
   TYPE_FIELDGOAL,
   TYPE_EXTRA_POINT
 } = playTypes;
 
-exports.default = function(play) {
+function calcYards(play) {
   const { start, end, home, away } = play;
 
   const possTeam = end.possession === 'home' ? home.alias : away.alias;
@@ -36,4 +36,6 @@ exports.default = function(play) {
   }
 
   return gained;
-};
+}
+
+export default calcYards;
