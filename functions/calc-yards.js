@@ -2,9 +2,7 @@ var playTypes = require('../constants').playTypes;
 
 const {
   TYPE_FIELDGOAL,
-  TYPE_EXTRA_POINT,
-
-  SCORE_OFF_TOUCHDOWN
+  TYPE_EXTRA_POINT
 } = playTypes;
 
 exports.default = function(play) {
@@ -16,16 +14,6 @@ exports.default = function(play) {
   const endLoc = end.locationAlias === away.alias ? away2Absolute(end.location) : end.location;
 
   let gained = endLoc - startLoc;
-
-  if (play.base.scoring === SCORE_OFF_TOUCHDOWN) {
-    // Offense scored from the opponent's side
-    gained = start.location;
-
-    // Offense scored a 50+ yard touchdown
-    if (start.locationAlias !== possTeam) {
-      gained = (50 - start.location) + 50;
-    }
-  }
 
   if (start.locationAlias === end.locationAlias) {
     switch (play.base.type) {
@@ -47,8 +35,5 @@ exports.default = function(play) {
     }
   }
 
-
-
   return gained;
-}
-;
+};
