@@ -6,7 +6,7 @@ const {
 } = playTypes;
 
 function calcYards(play) {
-  const { start, end, home, away } = play;
+  const { start, end, home, away, base } = play;
 
   const possTeam = end.possession === 'home' ? home.alias : away.alias;
   const away2Absolute = location => (50 - location) + 50;
@@ -14,12 +14,14 @@ function calcYards(play) {
   const endLoc = end.locationAlias === away.alias ? away2Absolute(end.location) : end.location;
 
   let gained = endLoc - startLoc;
-  if (end.possession === away.alias) {
+  if (end.possession === away.alias
+    && base.type !== playTypes.TYPE_KICKOFF
+    && base.type !== playTypes.TYPE_PUNT ) {
     gained *= -1;
   }
 
   if (start.locationAlias === end.locationAlias) {
-    switch (play.base.type) {
+    switch (base.type) {
       case TYPE_EXTRA_POINT:
         gained = 32;
         break;
