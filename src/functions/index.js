@@ -1,2 +1,2 @@
-// exports.calcYards = require('./calc-yards').default;
-export calcYards from './calc-yards';
+import calcYards from './calc-yards';
+export { calcYards };

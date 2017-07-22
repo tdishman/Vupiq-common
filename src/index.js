@@ -1,2 +1,4 @@
-export * as Constants from './constants';
-export * as Functions from './functions';
+import * as Constants from './constants';
+import * as Functions from './functions';
+
+export { Constants, Functions };

@@ -14,6 +14,9 @@ function calcYards(play) {
   const endLoc = end.locationAlias === away.alias ? away2Absolute(end.location) : end.location;
 
   let gained = endLoc - startLoc;
+  if (end.possession === away.alias) {
+    gained *= -1;
+  }
 
   if (start.locationAlias === end.locationAlias) {
     switch (play.base.type) {
