@@ -1,10 +1,11 @@
 export const INPROGRESS = 'inprogress';
-export const HALFTIME = 'half-time';
+export const HALFTIME = 'halftime';
 
 // TODO: NEED decide when set this statuses
 export const COMPLETE = 'complete';
 export const CANCELLED = 'cancelled';
 export const SCHEDULED = 'scheduled';
+export const CLOSED = 'closed';
 
 export const OVERTIME_PHASE = 'OVERTIME';
 export const INPROGRESS_PHASES = ['QUARTER 1', 'QUARTER 2', 'QUARTER 3', 'QUARTER 4', OVERTIME_PHASE];
