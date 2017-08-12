@@ -1,3 +1,3 @@
 import calcYards from './calc-yards';
-import Helpers from './Helpers';
+import * as Helpers from './Helpers';
 export { calcYards, Helpers };
