@@ -1,7 +1,17 @@
 import * as playTypes from '../../constants/play-types';
 import * as gameConstants from '../../constants/game';
 
-export const playIsScoring = play => [playTypes.TYPE_RUSH, playTypes.TYPE_PASS, playTypes.TYPE_CONVERSION].indexOf(play.base.type) > -1;
+export const playIsScoring = play => {
+  switch (play.base.type) {
+    case playTypes.TYPE_CONVERSION:
+      return true;
+    case playTypes.TYPE_RUSH:
+    case playTypes.TYPE_PASS:
+      return !play.base.noPlay;
+    default:
+      return false;
+  }
+};
 
 export const gameIsActive = game => [gameConstants.INPROGRESS, gameConstants.HALFTIME].indexOf(game.info.status) > -1;
 
@@ -25,7 +35,8 @@ export const getInitialPlay = () => {
       scoring: playTypes.SCORE_NONE,
       turnover: playTypes.TURNOVER_NONE,
       yardsGained: 0,
-      description: ''
+      description: '',
+      noPlay: false
     },
     points: {
       rush: 0,
