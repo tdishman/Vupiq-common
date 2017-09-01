@@ -59,5 +59,5 @@ export const toOrdinal = value => {
 };
 
 export const yfd = (down, yards) => {
-  return `${toOrdinal(down)} & ${yards > 10 ? 'Goal' : yards}`;
+  return `${toOrdinal(down)} & ${yards < 10 ? 'Goal' : yards}`;
 };
