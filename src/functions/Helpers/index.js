@@ -7,7 +7,7 @@ export const playIsScoring = play => {
       return true;
     case playTypes.TYPE_RUSH:
     case playTypes.TYPE_PASS:
-      return !play.base.noPlay;
+      return !play.base.penalty;
     default:
       return false;
   }
@@ -36,7 +36,7 @@ export const getInitialPlay = () => {
       turnover: playTypes.TURNOVER_NONE,
       yardsGained: 0,
       description: '',
-      noPlay: false
+      penalty: false
     },
     points: {
       rush: 0,
