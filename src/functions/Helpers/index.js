@@ -58,8 +58,8 @@ export const toOrdinal = value => {
   }
 };
 
-export const yfd = (down, yards, isSameTeam) => {
-  return `${toOrdinal(down)} & ${yards < 10 && !isSameTeam ? 'Goal' : yards}`;
+export const yfd = (down, yards, yardLine, teamsIsDif) => {
+  return `${toOrdinal(down)} & ${teamsIsDif && yardLine < 10 ? 'Goal' : yards}`;
 };
 
 export const findActualBetForPlay = (bets, play, prevPlay) => {
