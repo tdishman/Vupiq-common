@@ -58,10 +58,6 @@ export const toOrdinal = value => {
   }
 };
 
-export const yfd = (down, yards, yardLine, teamsIsDif) => {
-  return `${toOrdinal(down)} & ${teamsIsDif && yardLine < 10 ? 'Goal' : yards}`;
-};
-
 export const findActualBetForPlay = (bets, play, prevPlay) => {
   let actualBet = null;
   const sortedBets = bets.sort((betA, betB) => betB.createdAt - betA.createdAt);
