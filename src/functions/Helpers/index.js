@@ -68,21 +68,20 @@ export const findActualBetForPlay = (bets, play, prevPlay) => {
   else {
     for (let i = 0; i < sortedBets.length; i++) {
       let bet = sortedBets[i];
+      let latency = bet.latency || 0;
 
-      if (bet.latency) {
-        let betBeforePlayStarted = bet.createdAt <= (((play.startedAt || 0) + bet.latency) * 1000);
-        if (!prevPlay) {
-          if (betBeforePlayStarted) {
-            actualBet = bet;
-            break;
-          }
+      let betBeforePlayStarted = bet.createdAt <= (((play.startedAt || 0) + latency) * 1000);
+      if (!prevPlay) {
+        if (betBeforePlayStarted) {
+          actualBet = bet;
+          break;
         }
-        else {
-          let betAfterPrevPlayStarted = bet.createdAt > (((prevPlay.startedAt || 0) + bet.latency) * 1000);
-          if (betAfterPrevPlayStarted && betBeforePlayStarted) {
-            actualBet = bet;
-            break;
-          }
+      }
+      else {
+        let betAfterPrevPlayStarted = bet.createdAt > (((prevPlay.startedAt || 0) + latency) * 1000);
+        if (betAfterPrevPlayStarted && betBeforePlayStarted) {
+          actualBet = bet;
+          break;
         }
       }
     }
