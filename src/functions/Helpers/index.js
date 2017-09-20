@@ -37,11 +37,6 @@ export const getInitialPlay = () => {
       yardsGained: 0,
       description: '',
       penalty: false
-    },
-    points: {
-      rush: 0,
-      def: 0,
-      pass: 0
     }
   };
 };
