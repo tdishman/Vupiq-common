@@ -4,7 +4,6 @@ import * as gameConstants from '../../constants/game';
 export const playIsScoring = play => {
   switch (play.base.type) {
     case playTypes.TYPE_CONVERSION:
-      return true;
     case playTypes.TYPE_RUSH:
     case playTypes.TYPE_PASS:
       return !play.base.penalty;
