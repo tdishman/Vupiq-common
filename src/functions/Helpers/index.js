@@ -65,18 +65,9 @@ export const findActualBetForPlay = (bets, play, prevPlay) => {
       let latency = bet.latency || 0;
 
       let betBeforePlayStarted = bet.createdAt <= ((play.startedAt || 0) + latency);
-      if (!prevPlay) {
-        if (betBeforePlayStarted) {
-          actualBet = bet;
-          break;
-        }
-      }
-      else {
-        let betAfterPrevPlayStarted = bet.createdAt > ((prevPlay.startedAt || 0) + latency);
-        if (betAfterPrevPlayStarted && betBeforePlayStarted) {
-          actualBet = bet;
-          break;
-        }
+      if (betBeforePlayStarted && bet.position && bet.position !== 'none') {
+        actualBet = bet;
+        break;
       }
     }
   }
