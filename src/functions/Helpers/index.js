@@ -52,7 +52,7 @@ export const toOrdinal = value => {
   }
 };
 
-export const findActualBetForPlay = (bets, play, prevPlay) => {
+export const findActualBetForPlay = (bets, play) => {
   let actualBet = null;
   const sortedBets = bets.sort((betA, betB) => betB.createdAt - betA.createdAt);
 
