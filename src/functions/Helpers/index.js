@@ -55,7 +55,7 @@ export const toOrdinal = value => {
 export const findActualBetForPlay = (bets, play) => {
   let actualBet = null;
   const sortedBets = bets.sort((betA, betB) => betB.createdAt - betA.createdAt);
-  play.startedAt = play.startedAt || 0;
+  let playStartedAt = play.startedAt || 0;
   if (sortedBets.length === 1) {
     actualBet = sortedBets[0];
   }
@@ -63,7 +63,7 @@ export const findActualBetForPlay = (bets, play) => {
     for (let i = 0; i < sortedBets.length; i++) {
       let bet = sortedBets[i];
       let latency = bet.latency || 0;
-      let betBeforePlayStarted = latency > 0 ? bet.createdAt <= (play.startedAt + latency) : bet.createdAt + latency <= play.startedAt;
+      let betBeforePlayStarted = latency > 0 ? bet.createdAt <= (playStartedAt + latency) : bet.createdAt + latency <= playStartedAt;
 
       if (betBeforePlayStarted) {
         if (bet.position && bet.position !== 'none') {
