@@ -12,6 +12,7 @@ export const TYPE_KICKOFF = 'KICKOFF';
 export const TYPE_PUNT = 'PUNT';
 export const TYPE_FIELD_GOAL = 'FIELD_GOAL';
 export const TYPE_PENALTY = 'PENALTY';
+export const TYPE_COMMERCIAL = 'COMMERCIAL';
 
 /**
  * Sportradar event types
