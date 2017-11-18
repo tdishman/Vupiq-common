@@ -75,3 +75,11 @@ export const findActualBetForPlay = (bets, play) => {
   }
   return actualBet;
 };
+
+export const getLatencyGroup = milliseconds => {
+  milliseconds = milliseconds || 0;
+  if (milliseconds <= 0) {
+    return 0;
+  }
+  return Math.round(milliseconds / 1000) * 1000;
+};
