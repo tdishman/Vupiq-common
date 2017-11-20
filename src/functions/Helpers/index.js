@@ -81,5 +81,5 @@ export const getLatencyGroup = milliseconds => {
   if (milliseconds <= 0) {
     return 0;
   }
-  return Math.round(milliseconds / 1000) * 1000;
+  return (milliseconds / 1000 | 1000);
 };
