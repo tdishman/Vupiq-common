@@ -78,5 +78,5 @@ export const findActualBetForPlay = (bets, play) => {
 
 export const getLatencyGroup = milliseconds => {
   milliseconds = milliseconds || 0;
-  return (milliseconds / 1000 | 0);
+  return (milliseconds / 1000 | 0) * 1000;
 };
