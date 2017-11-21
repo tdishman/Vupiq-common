@@ -80,3 +80,24 @@ export const getLatencyGroup = milliseconds => {
   milliseconds = milliseconds || 0;
   return (milliseconds / 1000 | 0) * 1000;
 };
+
+export const betIsCreatedBeforePlayStarted = (bet, playStartedAt) => {
+  return bet.latency > 0 ? bet.createdAt <= (playStartedAt + bet.latency) : (bet.createdAt + bet.latency) <= playStartedAt;
+};
+
+export const getBetPoints = (play, bet, playStartedAt) => {
+  playStartedAt = playStartedAt || play.startedAt || 0;
+  let betBeforePlayStarted = betIsCreatedBeforePlayStarted(bet, playStartedAt);
+  if (play.points && betBeforePlayStarted && Date.now() >= playStartedAt + bet.latency) {
+    return {
+      pos: play.points[bet.position] || 0,
+      play: play.points
+    };
+  }
+  return null;
+};
+
+export const shouldProcessPoints = play => {
+  return play.base.type === playTypes.TYPE_CONVERSION || play.base.type === playTypes.TYPE_PASS || play.base.type === playTypes.TYPE_RUSH;
+};
+
