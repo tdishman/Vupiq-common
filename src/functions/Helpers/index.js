@@ -102,3 +102,73 @@ export const shouldProcessPoints = play => {
   play.base.type === playTypes.TYPE_RUSH;
 };
 
+// DO NOT USE WHILE THIS COMMENT EXISTS
+export const extractBetPoints = (play, points, playBonusesSystem, bet) => {
+  let betPoints = points[bet.playType.toLowerCase()] || 0;
+
+  if (bet.playDetail_0 && bet.playType === play.base.type) {
+    let detailsScored = false;
+
+    // Validate risk picks
+    for (let i = 0; i < playBonusesSystem[bet.playType].details.length; i++) {
+      let detail = playBonusesSystem[bet.playType].details[i];
+      let betDetailChoose = bet['playDetail_' + i];
+
+      if (!betDetailChoose) {
+        break;
+      }
+
+      switch (detail.metric) {
+        case 'Yards': {
+          let variant = detail.variants[betDetailChoose];
+          let maxIsPresent = variant.max !== null && variant.max !== undefined;
+          let minIsPresent = variant.min !== null && variant.min !== undefined;
+
+          if (maxIsPresent && minIsPresent) {
+            detailsScored = points.yardsGained >= variant.min && points.yardsGained <= variant.max;
+          }
+          else if (maxIsPresent) {
+            detailsScored = points.yardsGained <= variant.max;
+          }
+          else if (minIsPresent) {
+            detailsScored = points.yardsGained >= variant.min;
+          }
+
+          break;
+        }
+        case 'Direction': {
+          detailsScored = (points.direction || '').indexOf(betDetailChoose) > -1;
+          break;
+        }
+        case 'Result': {
+          detailsScored = (points.complete ? 'complete' : 'incomplete') === betDetailChoose;
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+
+      if (!detailsScored) {
+        break;
+      }
+    }
+
+    // Add extra points
+    if (detailsScored) {
+      betPoints += playBonusesSystem[bet.playType].points;
+      for (let j = 0; j < playBonusesSystem[bet.playType].details.length; j++) {
+        let betDetailChoose = bet['playDetail_' + j];
+        if (!betDetailChoose) {
+          break;
+        }
+        let variant = playBonusesSystem[bet.playType].details[j].variants[betDetailChoose];
+        betPoints += (variant ? variant.points : 0);
+      }
+    }
+  }
+  else if (bet.playType === play.base.type) {
+    betPoints += playBonusesSystem[bet.playType].points;
+  }
+  return betPoints;
+};
