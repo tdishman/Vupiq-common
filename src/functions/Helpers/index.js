@@ -1,5 +1,6 @@
 import * as playTypes from '../../constants/play-types';
 import * as gameConstants from '../../constants/game';
+import PlayPointsBonus from '../../models/PlayPointsBonus';
 
 export const playIsScoring = play => {
   switch (play.base.type) {
@@ -105,48 +106,23 @@ export const shouldProcessPoints = play => {
 // DO NOT USE WHILE THIS COMMENT EXISTS
 export const extractBetPoints = (play, points, playBonusesSystem, bet) => {
   let betPoints = points[bet.playType.toLowerCase()] || 0;
+  let playTypeBonuses = playBonusesSystem[bet.playType];
+  let betPlayTypeIsScored = bet.playType === play.base.type;
 
-  if (bet.playDetail_0 && bet.playType === play.base.type) {
+  if (bet.playDetail_0 && betPlayTypeIsScored) {
     let detailsScored = false;
-
+    let playTypeBonusesDetails = [];
     // Validate risk picks
-    for (let i = 0; i < playBonusesSystem[bet.playType].details.length; i++) {
-      let detail = playBonusesSystem[bet.playType].details[i];
-      let betDetailChoose = bet['playDetail_' + i];
+    for (let i = 0; i < playTypeBonuses.details.length; i++) {
+      let detail = playTypeBonuses.details[i];
 
-      if (!betDetailChoose) {
+      if (!bet['playDetail_' + i]) {
         break;
       }
 
-      switch (detail.metric) {
-        case 'Yards': {
-          let variant = detail.variants[betDetailChoose];
-          let maxIsPresent = variant.max !== null && variant.max !== undefined;
-          let minIsPresent = variant.min !== null && variant.min !== undefined;
-
-          if (maxIsPresent && minIsPresent) {
-            detailsScored = points.yardsGained >= variant.min && points.yardsGained <= variant.max;
-          }
-          else if (maxIsPresent) {
-            detailsScored = points.yardsGained <= variant.max;
-          }
-          else if (minIsPresent) {
-            detailsScored = points.yardsGained >= variant.min;
-          }
-
-          break;
-        }
-        case 'Direction': {
-          detailsScored = (points.direction || '').indexOf(betDetailChoose) > -1;
-          break;
-        }
-        case 'Result': {
-          detailsScored = (points.complete ? 'complete' : 'incomplete') === betDetailChoose;
-          break;
-        }
-        default: {
-          break;
-        }
+      if (PlayPointsBonus.typeIsExists(detail.metric)) {
+        playTypeBonusesDetails[i] = new PlayPointsBonus(detail, points, bet['playDetail_' + i]);
+        detailsScored = playTypeBonusesDetails[i].isScored();
       }
 
       if (!detailsScored) {
@@ -156,19 +132,18 @@ export const extractBetPoints = (play, points, playBonusesSystem, bet) => {
 
     // Add extra points
     if (detailsScored) {
-      betPoints += playBonusesSystem[bet.playType].points;
-      for (let j = 0; j < playBonusesSystem[bet.playType].details.length; j++) {
+      betPoints += playTypeBonuses.points;
+      for (let j = 0; j < playTypeBonusesDetails.length; j++) {
         let betDetailChoose = bet['playDetail_' + j];
         if (!betDetailChoose) {
           break;
         }
-        let variant = playBonusesSystem[bet.playType].details[j].variants[betDetailChoose];
-        betPoints += (variant ? variant.points : 0);
+        betPoints += playTypeBonusesDetails.scoredPoints();
       }
     }
   }
-  else if (bet.playType === play.base.type) {
-    betPoints += playBonusesSystem[bet.playType].points;
+  else if (betPlayTypeIsScored) {
+    betPoints += playTypeBonuses.points;
   }
   return betPoints;
 };
