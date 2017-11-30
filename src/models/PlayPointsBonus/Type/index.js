@@ -1,3 +1,5 @@
-export { Yards } from './Yards';
-export { Direction } from './Direction';
-export { Result } from './Result';
+import Yards from './Yards';
+import Direction from './Direction';
+import Result from './Result';
+
+export default {Yards, Direction, Result};

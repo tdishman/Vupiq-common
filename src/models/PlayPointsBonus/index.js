@@ -1,4 +1,4 @@
-import * as BonusTypes from './Type';
+import BonusTypes from './Type';
 
 export default class PlayPointsBonus {
   constructor({metric, variants}, playPoints, variantKey) {

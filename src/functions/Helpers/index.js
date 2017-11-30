@@ -138,7 +138,7 @@ export const extractBetPoints = (play, points, playBonusesSystem, bet) => {
         if (!betDetailChoose) {
           break;
         }
-        betPoints += playTypeBonusesDetails.scoredPoints();
+        betPoints += playTypeBonusesDetails[j].scoredPoints();
       }
     }
   }

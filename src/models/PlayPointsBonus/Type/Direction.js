@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Base from './Base';
 
 export default class Direction extends Base {
