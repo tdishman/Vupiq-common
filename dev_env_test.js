@@ -66,7 +66,7 @@ let play = {
 };
 
 function test() {
-  let result = Functions.Helpers.getScoredPickVariants(play, points, playBonuses);
+  let result = Functions.Helpers.getScoredBonusesVariants(play, points, playBonuses);
   console.log(result);
 }
 

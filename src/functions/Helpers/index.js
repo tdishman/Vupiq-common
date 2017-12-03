@@ -120,14 +120,11 @@ export const getScoredBonusesVariants = (play, points, playBonusesSystem) => {
       let scoredVariant = playPointsBonus.getScoredVariant();
       complexPick.push(scoredVariant);
       complexVariantPoints += playPointsBonus.scoredPoints(scoredVariant);
+      pickVariants[basePick + '__' + complexPick.join('__')] = complexVariantPoints + pickVariants[basePick];
     }
     else {
       break;
     }
-  }
-
-  if (complexPick.length > 1) {
-    pickVariants[basePick + '__' + complexPick.join('__')] = complexVariantPoints + pickVariants[basePick];
   }
 
   return pickVariants;
