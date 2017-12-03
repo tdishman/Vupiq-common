@@ -1,14 +1,14 @@
 import Base from './Base';
 
 export default class Yards extends Base {
-  constructor(variants, variantKey, playPoints) {
-    super(variants, variantKey);
+  constructor(variants, playPoints) {
+    super(variants);
     this.yards = playPoints.yardsGained;
   }
 
-  isScored() {
+  isScored(variantKey) {
     let scored = false;
-    let variant = this.variants[this.variantKey];
+    let variant = this.variants[variantKey];
     let maxIsPresent = variant.max !== null && variant.max !== undefined;
     let minIsPresent = variant.min !== null && variant.min !== undefined;
 

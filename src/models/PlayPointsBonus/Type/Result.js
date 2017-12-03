@@ -1,12 +1,12 @@
 import Base from './Base';
 
 export default class Result extends Base {
-  constructor(variants, variantKey, playPoints) {
-    super(variants, variantKey);
+  constructor(variants, playPoints) {
+    super(variants);
     this.complete = playPoints.complete ? 'complete' : 'incomplete';
   }
 
-  isScored() {
-    return this.complete === this.variantKey;
+  isScored(variant) {
+    return this.complete === (variant);
   }
 }

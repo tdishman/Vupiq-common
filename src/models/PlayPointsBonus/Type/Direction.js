@@ -2,12 +2,12 @@
 import Base from './Base';
 
 export default class Direction extends Base {
-  constructor(variants, variantKey, playPoints) {
-    super(variants, variantKey);
+  constructor(variants, playPoints) {
+    super(variants);
     this.direction = playPoints.direction;
   }
 
-  isScored() {
-    return (this.direction || '').indexOf(this.variantKey) > -1;
+  isScored(variant) {
+    return (this.direction || '').indexOf(variant) > -1;
   }
 }

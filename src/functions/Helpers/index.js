@@ -103,47 +103,32 @@ export const shouldProcessPoints = play => {
   play.base.type === playTypes.TYPE_RUSH;
 };
 
-// DO NOT USE WHILE THIS COMMENT EXISTS
-export const extractBetPoints = (play, points, playBonusesSystem, bet) => {
-  let betPoints = points[bet.playType.toLowerCase()] || 0;
-  let playTypeBonuses = playBonusesSystem[bet.playType];
-  let betPlayTypeIsScored = bet.playType === play.base.type;
+export const getScoredPickVariants = (play, points, playBonusesSystem) => {
+  let pickVariants = {};
+  let playTypeBonuses = playBonusesSystem[play.base.type];
+  let basePick = 'variant__' + play.base.type;
+  let complexPick = [];
+  let complexVariantPoints = 0;
+  pickVariants[basePick] = playTypeBonuses ? playTypeBonuses.points : 0;
 
-  if (bet.playDetail_0 && betPlayTypeIsScored) {
-    let detailsScored = false;
-    let playTypeBonusesDetails = [];
-    // Validate risk picks
-    for (let i = 0; i < playTypeBonuses.details.length; i++) {
-      let detail = playTypeBonuses.details[i];
+  // Validate risk picks
+  for (let i = 0; i < playTypeBonuses.details.length; i++) {
+    let detail = playTypeBonuses.details[i];
 
-      if (!bet['playDetail_' + i]) {
-        break;
-      }
-
-      if (PlayPointsBonus.typeIsExists(detail.metric)) {
-        playTypeBonusesDetails[i] = new PlayPointsBonus(detail, points, bet['playDetail_' + i]);
-        detailsScored = playTypeBonusesDetails[i].isScored();
-      }
-
-      if (!detailsScored) {
-        break;
-      }
+    if (PlayPointsBonus.typeIsExists(detail.metric)) {
+      let playPointsBonus = new PlayPointsBonus(detail, points);
+      let scoredVariant = playPointsBonus.getScoredVariant();
+      complexPick.push(scoredVariant);
+      complexVariantPoints += playPointsBonus.scoredPoints(scoredVariant);
     }
-
-    // Add extra points
-    if (detailsScored) {
-      betPoints += playTypeBonuses.points;
-      for (let j = 0; j < playTypeBonusesDetails.length; j++) {
-        let betDetailChoose = bet['playDetail_' + j];
-        if (!betDetailChoose) {
-          break;
-        }
-        betPoints += playTypeBonusesDetails[j].scoredPoints();
-      }
+    else {
+      break;
     }
   }
-  else if (betPlayTypeIsScored) {
-    betPoints += playTypeBonuses.points;
+
+  if (complexPick.length > 1) {
+    pickVariants[basePick + '__' + complexPick.join('__')] = complexVariantPoints + pickVariants[basePick];
   }
-  return betPoints;
+
+  return pickVariants;
 };

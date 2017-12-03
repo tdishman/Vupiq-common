@@ -1,14 +1,25 @@
 export default class Base {
-  constructor(variants, variantKey) {
+  constructor(variants) {
     this.variants = variants;
-    this.variantKey = variantKey;
   }
 
   isScored() {
     return false;
   }
 
-  scoredPoints() {
-    return this.variants[this.variantKey].points || 0;
+  getScoredVariant() {
+    let variant = '';
+    let variantsKeys = Object.keys(this.variants);
+    for (let i = 0; i < variantsKeys.length; i++) {
+      variant = variantsKeys[i];
+      if (this.isScored(variantsKeys[i])) {
+        break;
+      }
+    }
+    return variant;
+  }
+
+  scoredPoints(variantKey) {
+    return this.variants[variantKey].points || 0;
   }
 }
