@@ -89,8 +89,14 @@ export const betIsCreatedBeforePlayStarted = (bet, playStartedAt) => {
 export const getBetPoints = (play, bet) => {
   let playStartedAtValid = (play.startedAt || 0) + (bet.latency > 0 ? bet.latency : 0);
 
-  if (play.points && playStartedAtValid > 0 && playStartedAtValid <= Date.now()) {
-    return { points: play.points, pos: play.points[bet.position] || 0 };
+  if (playStartedAtValid > 0 && playStartedAtValid <= Date.now()) {
+    let betPoints = play.points ? {
+      points: play.points,
+      pos: play.points[bet.position] || 0,
+      bonus: play.points.bonuses ? play.points.bonuses[bet.bonus] || 0 : 0
+    } : {points: null, pos: 0, bonus: 0};
+    betPoints.total = betPoints.pos + betPoints.bonus;
+    return betPoints;
   }
 
   return null;
