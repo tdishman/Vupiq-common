@@ -7,7 +7,7 @@ export const playIsScoring = play => {
     case playTypes.TYPE_CONVERSION:
     case playTypes.TYPE_RUSH:
     case playTypes.TYPE_PASS:
-      return !play.base.penalty;
+      return true;
     default:
       return false;
   }
