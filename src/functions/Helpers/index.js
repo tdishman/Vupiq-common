@@ -109,10 +109,10 @@ export const shouldProcessPoints = play => {
   play.base.type === playTypes.TYPE_RUSH;
 };
 
-export const getScoredBonusesVariants = (play, points, playBonusesSystem) => {
+export const getScoredBonusesVariants = (playType, points, playBonusesSystem) => {
   let pickVariants = {};
-  let playTypeBonuses = playBonusesSystem[play.base.type];
-  let basePick = play.base.type;
+  let playTypeBonuses = playBonusesSystem[playType];
+  let basePick = playType;
   let complexPick = [];
   let complexVariantPoints = 0;
   pickVariants[basePick] = playTypeBonuses ? playTypeBonuses.points : 0;
