@@ -18,8 +18,4 @@ export default class Base {
     }
     return variant;
   }
-
-  scoredPoints(variantKey) {
-    return this.variants[variantKey].points || 0;
-  }
 }

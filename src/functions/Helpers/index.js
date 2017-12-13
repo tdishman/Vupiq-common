@@ -115,7 +115,7 @@ export const getScoredBonusesVariants = (playType, points, playBonusesSystem) =>
   let basePick = playType;
   let complexPick = [];
   let complexVariantPoints = 0;
-  pickVariants[basePick] = playTypeBonuses ? playTypeBonuses.points : 0;
+  pickVariants[basePick] = playTypeBonuses ? playTypeBonuses.points[basePick] || 0 : 0;
 
   // Validate risk picks
   for (let i = 0; i < playTypeBonuses.details.length; i++) {
@@ -125,8 +125,9 @@ export const getScoredBonusesVariants = (playType, points, playBonusesSystem) =>
       let playPointsBonus = new PlayPointsBonus(detail, points);
       let scoredVariant = playPointsBonus.getScoredVariant();
       complexPick.push(scoredVariant);
-      complexVariantPoints += playPointsBonus.scoredPoints(scoredVariant);
-      pickVariants[basePick + '__' + complexPick.join('__')] = complexVariantPoints + pickVariants[basePick];
+      let complexPickKey = basePick + '__' + complexPick.join('__');
+      complexVariantPoints = playTypeBonuses.points[complexPickKey];
+      pickVariants[complexPickKey] = complexVariantPoints;
     }
     else {
       break;

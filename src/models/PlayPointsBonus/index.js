@@ -14,10 +14,6 @@ export default class PlayPointsBonus {
     return this.instance.isScored();
   }
 
-  scoredPoints(variantKey) {
-    return this.instance ? this.instance.scoredPoints(variantKey) : 0;
-  }
-
   getScoredVariant() {
     return this.instance ? this.instance.getScoredVariant() : '';
   }
