@@ -1,12 +1,17 @@
 import * as playTypes from '../../constants/play-types';
 import * as gameConstants from '../../constants/game';
 import PlayPointsBonus from '../../models/PlayPointsBonus';
+const debug = require('debug')('vupiq-common:functions:helpers');
 
 export const playIsScoring = play => {
   switch (play.base.type) {
     case playTypes.TYPE_CONVERSION:
     case playTypes.TYPE_RUSH:
     case playTypes.TYPE_PASS:
+    case playTypes.TYPE_KICKOFF:
+    case playTypes.TYPE_EXTRA_POINT:
+    case playTypes.TYPE_FIELD_GOAL:
+    case playTypes.TYPE_PUNT:
       return true;
     default:
       return false;
@@ -91,10 +96,9 @@ export const getBetPoints = (play, bet) => {
 
   if (playStartedAtValid > 0 && playStartedAtValid <= Date.now()) {
     let betPoints = play.points ? {
-      points: play.points,
       pos: play.points[bet.position] || 0,
       bonus: play.points.bonuses ? play.points.bonuses[bet.bonus] || 0 : 0
-    } : {points: null, pos: 0, bonus: 0};
+    } : {pos: 0, bonus: 0};
     betPoints.total = betPoints.pos + betPoints.bonus;
     return betPoints;
   }
@@ -114,25 +118,37 @@ export const getScoredBonusesVariants = (playType, points, playBonusesSystem) =>
   let playTypeBonuses = playBonusesSystem[playType];
   let basePick = playType;
   let complexPick = [];
-  let complexVariantPoints = 0;
   pickVariants[basePick] = playTypeBonuses ? playTypeBonuses.points[basePick] || 0 : 0;
+  let details = playTypeBonuses.details;
 
-  // Validate risk picks
-  for (let i = 0; i < playTypeBonuses.details.length; i++) {
-    let detail = playTypeBonuses.details[i];
+  // Recursive details processing
+  processDetails(pickVariants, details, basePick, points, playTypeBonuses, complexPick);
+  debug(JSON.stringify(pickVariants));
+  return pickVariants;
+};
 
+const processDetails = (pickVariants, details, basePick, points, playTypeBonuses, complexPick) => {
+  debug(JSON.stringify(complexPick));
+  debug(JSON.stringify(pickVariants));
+  for (let i = 0; i < details.length; i++) {
+    let detail = details[i];
+    debug(`details index ${i}`);
+    debug(JSON.stringify(detail));
     if (PlayPointsBonus.typeIsExists(detail.metric)) {
       let playPointsBonus = new PlayPointsBonus(detail, points);
       let scoredVariant = playPointsBonus.getScoredVariant();
       complexPick.push(scoredVariant);
       let complexPickKey = basePick + '__' + complexPick.join('__');
-      complexVariantPoints = playTypeBonuses.points[complexPickKey];
-      pickVariants[complexPickKey] = complexVariantPoints;
+      pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
+
+      let nextDetails = playPointsBonus.nextDetails(scoredVariant);
+      if (nextDetails) {
+        processDetails(pickVariants, nextDetails, basePick, points, playTypeBonuses, complexPick);
+        break;
+      }
     }
     else {
       break;
     }
   }
-
-  return pickVariants;
 };

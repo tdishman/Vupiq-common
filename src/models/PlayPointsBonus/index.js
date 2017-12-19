@@ -18,6 +18,10 @@ export default class PlayPointsBonus {
     return this.instance ? this.instance.getScoredVariant() : '';
   }
 
+  nextDetails(variant) {
+    return this.instance ? this.instance.nextDetails(variant) : false;
+  }
+
   static typeIsExists(metric) {
     return !!BonusTypes[metric];
   }
