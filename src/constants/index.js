@@ -1,3 +1,4 @@
 import * as playTypes from './play-types';
 import * as game from './game';
-export { playTypes, game };
+import * as playDownTypes from './play-down-types';
+export { playTypes, game, playDownTypes };

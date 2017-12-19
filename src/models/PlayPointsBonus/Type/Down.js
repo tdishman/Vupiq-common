@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+const debug = require('debug')('vupiq-common:bonus-type:down');
 import Base from './Base';
 
 export default class Down extends Base {
@@ -8,6 +9,8 @@ export default class Down extends Base {
   }
 
   isScored(variant) {
+// eslint-disable-next-line no-console
+    debug(`${this.downType} === ${variant}`);
     return this.downType === variant;
   }
 }
