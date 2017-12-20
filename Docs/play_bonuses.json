@@ -1,0 +1,258 @@
+{
+  "CONVERSION" : {
+    "details" : [ {
+      "metric" : "ConversionCategory",
+      "title" : "Type",
+      "variants" : {
+        "pass" : {
+          "order" : 0
+        },
+        "rush" : {
+          "order" : 1
+        }
+      }
+    }, {
+      "metric" : "ConversionResult",
+      "title" : "Result",
+      "variants" : {
+        "failed" : {
+          "order" : 1
+        },
+        "success" : {
+          "order" : 0
+        }
+      }
+    } ],
+    "points" : {
+      "CONVERSION" : 1,
+      "CONVERSION__pass" : 5,
+      "CONVERSION__pass__failed" : 10,
+      "CONVERSION__pass__success" : 12,
+      "CONVERSION__rush" : 7,
+      "CONVERSION__rush__failed" : 12,
+      "CONVERSION__rush__success" : 14
+    }
+  },
+  "EXTRA_POINT" : {
+    "details" : [ {
+      "metric" : "ScoringPlay",
+      "title" : "Scoring",
+      "variants" : {
+        "made" : {
+          "order" : 0
+        },
+        "missed" : {
+          "order" : 1
+        }
+      }
+    } ],
+    "points" : {
+      "EXTRA_POINT" : 1,
+      "EXTRA_POINT__made" : 2,
+      "EXTRA_POINT__missed" : 8
+    }
+  },
+  "FIELD_GOAL" : {
+    "details" : [ {
+      "metric" : "FieldGoalResult",
+      "title" : "Result",
+      "variants" : {
+        "fieldGoalFake" : {
+          "order" : 2
+        },
+        "made" : {
+          "order" : 0
+        },
+        "missed" : {
+          "order" : 1
+        }
+      }
+    } ],
+    "points" : {
+      "FIELD_GOAL" : 1,
+      "FIELD_GOAL__fieldGoalFake" : 15,
+      "FIELD_GOAL__made" : 4,
+      "FIELD_GOAL__missed" : 13
+    }
+  },
+  "KICKOFF" : {
+    "details" : [ {
+      "metric" : "KickoffType",
+      "title" : "Type",
+      "variants" : {
+        "onsideKick" : {
+          "details" : [ {
+            "metric" : "OnsideKick",
+            "title" : "Recovered",
+            "variants" : {
+              "onsideSuccessFalse" : {
+                "order" : 1
+              },
+              "onsideSuccessTrue" : {
+                "order" : 0
+              }
+            }
+          } ],
+          "order" : 2
+        },
+        "returned" : {
+          "details" : [ {
+            "metric" : "ReturnedKickoff",
+            "title" : "25 yard line",
+            "variants" : {
+              "25orBeyond" : {
+                "order" : 1
+              },
+              "inside25" : {
+                "order" : 0
+              }
+            }
+          } ],
+          "order" : 1
+        },
+        "touchback" : {
+          "order" : 0
+        }
+      }
+    } ],
+    "points" : {
+      "KICKOFF" : 1,
+      "KICKOFF__onsideKick" : 6,
+      "KICKOFF__onsideKick__onsideSuccessFalse" : 13,
+      "KICKOFF__onsideKick__onsideSuccessTrue" : 15,
+      "KICKOFF__returned" : 6,
+      "KICKOFF__returned__25orBeyond" : 13,
+      "KICKOFF__returned__inside25" : 11,
+      "KICKOFF__touchback" : 4
+    }
+  },
+  "PASS" : {
+    "details" : [ {
+      "metric" : "Yards",
+      "title" : "Distance In Air",
+      "variants" : {
+        "10orLess" : {
+          "max" : 10,
+          "order" : 0
+        },
+        "11-20" : {
+          "max" : 20,
+          "min" : 11,
+          "order" : 1
+        },
+        "21+" : {
+          "min" : 21,
+          "order" : 2
+        }
+      }
+    }, {
+      "metric" : "Down",
+      "title" : "Result",
+      "variants" : {
+        "firstdown" : {
+          "order" : 1
+        },
+        "nextdown" : {
+          "order" : 0
+        },
+        "touchdown" : {
+          "order" : 2
+        }
+      }
+    } ],
+    "points" : {
+      "PASS" : 4,
+      "PASS__10orLess" : 7,
+      "PASS__10orLess__firstdown" : 12,
+      "PASS__10orLess__nextdown" : 10,
+      "PASS__10orLess__touchdown" : 14,
+      "PASS__11-20" : 9,
+      "PASS__11-20__firstdown" : 14,
+      "PASS__11-20__nextdown" : 12,
+      "PASS__11-20__touchdown" : 16,
+      "PASS__21+" : 11,
+      "PASS__21+__firstdown" : 16,
+      "PASS__21+__nextdown" : 14,
+      "PASS__21+__touchdown" : 18,
+      "PASS__none__firstdown" : 9,
+      "PASS__none__nextdown" : 7,
+      "PASS__none__touchdown" : 11
+    }
+  },
+  "PUNT" : {
+    "details" : [ {
+      "metric" : "PuntResult",
+      "title" : "Result",
+      "variants" : {
+        "blocked" : {
+          "order" : 1
+        },
+        "fake" : {
+          "order" : 2
+        },
+        "successful" : {
+          "order" : 0
+        }
+      }
+    } ],
+    "points" : {
+      "PUNT" : 1,
+      "PUNT__blocked" : 15,
+      "PUNT__fake" : 20,
+      "PUNT__successful" : 3
+    }
+  },
+  "RUSH" : {
+    "details" : [ {
+      "metric" : "Yards",
+      "title" : "Yards",
+      "variants" : {
+        "3orLess" : {
+          "max" : 3,
+          "order" : 0
+        },
+        "4-7" : {
+          "max" : 7,
+          "min" : 4,
+          "order" : 1
+        },
+        "8+" : {
+          "min" : 8,
+          "order" : 2
+        }
+      }
+    }, {
+      "metric" : "Down",
+      "title" : "Result",
+      "variants" : {
+        "firstdown" : {
+          "order" : 1
+        },
+        "nextdown" : {
+          "order" : 0
+        },
+        "touchdown" : {
+          "order" : 2
+        }
+      }
+    } ],
+    "points" : {
+      "RUSH" : 6,
+      "RUSH__3orLess" : 9,
+      "RUSH__3orLess__firstdown" : 14,
+      "RUSH__3orLess__nextdown" : 12,
+      "RUSH__3orLess__touchdown" : 16,
+      "RUSH__4-7" : 11,
+      "RUSH__4-7__firstdown" : 16,
+      "RUSH__4-7__nextdown" : 14,
+      "RUSH__4-7__touchdown" : 18,
+      "RUSH__8+" : 13,
+      "RUSH__8+__firstdown" : 18,
+      "RUSH__8+__nextdown" : 16,
+      "RUSH__8+__touchdown" : 20,
+      "RUSH__none__firstdown" : 11,
+      "RUSH__none__nextdown" : 9,
+      "RUSH__none__touchdown" : 13
+    }
+  }
+}
