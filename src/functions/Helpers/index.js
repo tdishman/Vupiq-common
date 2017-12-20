@@ -107,10 +107,7 @@ export const getBetPoints = (play, bet) => {
 };
 
 export const shouldProcessPoints = play => {
-  return play.endedAt > 0 &&
-  play.base.type === playTypes.TYPE_CONVERSION ||
-  play.base.type === playTypes.TYPE_PASS ||
-  play.base.type === playTypes.TYPE_RUSH;
+  return play.endedAt > 0 && playIsScoring(play);
 };
 
 export const getScoredBonusesVariants = (playType, points, playBonusesSystem) => {
@@ -128,12 +125,8 @@ export const getScoredBonusesVariants = (playType, points, playBonusesSystem) =>
 };
 
 const processDetails = (pickVariants, details, basePick, points, playTypeBonuses, complexPick) => {
-  debug(JSON.stringify(complexPick));
-  debug(JSON.stringify(pickVariants));
   for (let i = 0; i < details.length; i++) {
     let detail = details[i];
-    debug(`details index ${i}`);
-    debug(JSON.stringify(detail));
     if (PlayPointsBonus.typeIsExists(detail.metric)) {
       let playPointsBonus = new PlayPointsBonus(detail, points);
       let scoredVariant = playPointsBonus.getScoredVariant();

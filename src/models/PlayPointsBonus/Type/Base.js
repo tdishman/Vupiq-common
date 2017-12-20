@@ -15,8 +15,8 @@ export default class Base {
     let variant = '';
     let variantsKeys = Object.keys(this.variants);
     for (let i = 0; i < variantsKeys.length; i++) {
-      variant = variantsKeys[i];
-      if (this.isScored(variant)) {
+      if (this.isScored(variantsKeys[i])) {
+        variant = variantsKeys[i];
         break;
       }
     }

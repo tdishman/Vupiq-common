@@ -8,5 +8,20 @@ import OnsideKick from './OnsideKick';
 import ScoringPlay from './ScoringPlay';
 import FieldGoalResult from './FieldGoalResult';
 import PuntResult from './PuntResult';
+import ConversionCategory from './ConversionCategory';
+import ConversionResult from './ConversionResult';
 
-export default {Yards, Direction, Result, Down, KickoffType, ReturnedKickoff, OnsideKick, ScoringPlay, FieldGoalResult, PuntResult};
+export default {
+  Yards,
+  Direction,
+  Result,
+  Down,
+  KickoffType,
+  ReturnedKickoff,
+  OnsideKick,
+  ScoringPlay,
+  FieldGoalResult,
+  PuntResult,
+  ConversionCategory,
+  ConversionResult
+};

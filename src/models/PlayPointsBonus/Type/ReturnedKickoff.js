@@ -5,7 +5,12 @@ import Base from './Base';
 export default class ReturnedKickoff extends Base {
   constructor(variants, playPoints) {
     super(variants);
-    this.returnedKickoff = playPoints.returnedKickoff;
+    if (playPoints.locationYardline < 25 && playPoints.territoryOfPossesion) {
+      this.returnedKickoff = 'inside25';
+    }
+    else if (playPoints.locationYardline >= 25) {
+      this.returnedKickoff = '25orBeyond';
+    }
   }
 
   isScored(variant) {
