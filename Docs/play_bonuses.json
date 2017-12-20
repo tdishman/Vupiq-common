@@ -185,10 +185,10 @@
   },
   "FIELD_GOAL": {
     "points": {
-      "EXTRA_POINT": 0,
-      "EXTRA_POINT__made": 1.2,
-      "EXTRA_POINT__missed": 6.5,
-      "EXTRA_POINT__fieldGoalFake": 18
+      "FIELD_GOAL": 0,
+      "FIELD_GOAL__made": 1.2,
+      "FIELD_GOAL__missed": 6.5,
+      "FIELD_GOAL__fieldGoalFake": 18
     },
     "details": [
       {
