@@ -8,7 +8,7 @@ export default class Base {
   }
 
   nextDetails(variant) {
-    return this.variants[variant].details;
+    return this.variants[variant] ? this.variants[variant].details : null;
   }
 
   getScoredVariant() {
