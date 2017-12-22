@@ -30,7 +30,9 @@
       "CONVERSION__pass__success" : 12,
       "CONVERSION__rush" : 7,
       "CONVERSION__rush__failed" : 12,
-      "CONVERSION__rush__success" : 14
+      "CONVERSION__rush__success" : 14,
+      "CONVERSION__none__failed" : 6,
+      "CONVERSION__none__success" : 8
     }
   },
   "EXTRA_POINT" : {
@@ -76,6 +78,7 @@
     }
   },
   "KICKOFF" : {
+    "disabledSkip": true,
     "details" : [ {
       "metric" : "KickoffType",
       "title" : "Type",

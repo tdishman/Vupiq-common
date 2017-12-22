@@ -1,32 +1,8 @@
 /* eslint-disable no-console */
 let Functions = require('./lib').Functions;
+let playBonuses = require('./Docs/play_bonuses');
 
-let playBonuses = {
-  'PASS': {
-    'details': [{
-      'metric': 'Yards',
-      'variants': {
-        '10orLess': {'max': 10, 'points': 1.5},
-        '11-20': {'max': 20, 'min': 11, 'points': 4.8},
-        '21+': {'min': 21, 'points': 9}
-      }
-    }, {'metric': 'Result', 'variants': {'complete': {'points': 1.9}, 'incomplete': {'points': 2.1}}}], 'points': 1.7
-  },
-  'RUSH': {
-    'details': [{
-      'metric': 'Direction',
-      'variants': {'left': {'points': 2.8}, 'middle': {'points': 3.5}, 'right': {'points': 2.8}}
-    }, {
-      'metric': 'Yards',
-      'variants': {
-        '3orLess': {'max': 3, 'points': 1.8},
-        '4-7': {'max': 7, 'min': 4, 'points': 3.8},
-        '8+': {'min': 8, 'points': 5.9}
-      }
-    }], 'points': 2.5
-  }
-};
-let points = {'direction': 'right guard', 'pass': 0, 'rush': -2, 'yardsGained': 5};
+let points = {'downType': 'firstdown', 'pass': 0, 'rush': -2, 'yardsGained': 5};
 let play = {
   'uid': '-L-DdCRoREVT17o_x255',
   'auto': true,
@@ -66,7 +42,7 @@ let play = {
 };
 
 function test() {
-  let result = Functions.Helpers.getScoredBonusesVariants(play, points, playBonuses);
+  let result = Functions.Helpers.getScoredBonusesVariants(play.base.type, points, playBonuses);
   console.log(result);
 }
 
