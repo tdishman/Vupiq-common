@@ -1,5 +1,6 @@
 {
   "CONVERSION" : {
+    "order": 6,
     "details" : [ {
       "metric" : "ConversionCategory",
       "title" : "Type",
@@ -36,6 +37,7 @@
     }
   },
   "EXTRA_POINT" : {
+    "order": 5,
     "details" : [ {
       "metric" : "ScoringPlay",
       "title" : "Scoring",
@@ -55,6 +57,7 @@
     }
   },
   "FIELD_GOAL" : {
+    "order": 4,
     "details" : [ {
       "metric" : "FieldGoalResult",
       "title" : "Result",
@@ -78,6 +81,7 @@
     }
   },
   "KICKOFF" : {
+    "order": 2,
     "disabledSkip": true,
     "details" : [ {
       "metric" : "KickoffType",
@@ -130,20 +134,21 @@
     }
   },
   "PASS" : {
+    "order": 0,
     "details" : [ {
       "metric" : "Yards",
       "title" : "Distance In Air",
       "variants" : {
-        "10orLess" : {
+        "short" : {
           "max" : 10,
           "order" : 0
         },
-        "11-20" : {
+        "medium" : {
           "max" : 20,
           "min" : 11,
           "order" : 1
         },
-        "21+" : {
+        "long" : {
           "min" : 21,
           "order" : 2
         }
@@ -165,24 +170,25 @@
     } ],
     "points" : {
       "PASS" : 4,
-      "PASS__10orLess" : 7,
-      "PASS__10orLess__firstdown" : 12,
-      "PASS__10orLess__nextdown" : 10,
-      "PASS__10orLess__touchdown" : 14,
-      "PASS__11-20" : 9,
-      "PASS__11-20__firstdown" : 14,
-      "PASS__11-20__nextdown" : 12,
-      "PASS__11-20__touchdown" : 16,
-      "PASS__21+" : 11,
-      "PASS__21+__firstdown" : 16,
-      "PASS__21+__nextdown" : 14,
-      "PASS__21+__touchdown" : 18,
+      "PASS__short" : 7,
+      "PASS__short__firstdown" : 12,
+      "PASS__short__nextdown" : 10,
+      "PASS__short__touchdown" : 14,
+      "PASS__medium" : 9,
+      "PASS__medium__firstdown" : 14,
+      "PASS__medium__nextdown" : 12,
+      "PASS__medium__touchdown" : 16,
+      "PASS__long" : 11,
+      "PASS__long__firstdown" : 16,
+      "PASS__long__nextdown" : 14,
+      "PASS__long__touchdown" : 18,
       "PASS__none__firstdown" : 9,
       "PASS__none__nextdown" : 7,
       "PASS__none__touchdown" : 11
     }
   },
   "PUNT" : {
+    "order": 3,
     "details" : [ {
       "metric" : "PuntResult",
       "title" : "Result",
@@ -206,20 +212,21 @@
     }
   },
   "RUSH" : {
+    "order": 1,
     "details" : [ {
       "metric" : "Yards",
       "title" : "Yards",
       "variants" : {
-        "3orLess" : {
+        "short" : {
           "max" : 3,
           "order" : 0
         },
-        "4-7" : {
+        "medium" : {
           "max" : 7,
           "min" : 4,
           "order" : 1
         },
-        "8+" : {
+        "long" : {
           "min" : 8,
           "order" : 2
         }
@@ -241,18 +248,18 @@
     } ],
     "points" : {
       "RUSH" : 6,
-      "RUSH__3orLess" : 9,
-      "RUSH__3orLess__firstdown" : 14,
-      "RUSH__3orLess__nextdown" : 12,
-      "RUSH__3orLess__touchdown" : 16,
-      "RUSH__4-7" : 11,
-      "RUSH__4-7__firstdown" : 16,
-      "RUSH__4-7__nextdown" : 14,
-      "RUSH__4-7__touchdown" : 18,
-      "RUSH__8+" : 13,
-      "RUSH__8+__firstdown" : 18,
-      "RUSH__8+__nextdown" : 16,
-      "RUSH__8+__touchdown" : 20,
+      "RUSH__short" : 9,
+      "RUSH__short__firstdown" : 14,
+      "RUSH__short__nextdown" : 12,
+      "RUSH__short__touchdown" : 16,
+      "RUSH__medium" : 11,
+      "RUSH__medium__firstdown" : 16,
+      "RUSH__medium__nextdown" : 14,
+      "RUSH__medium__touchdown" : 18,
+      "RUSH__long" : 13,
+      "RUSH__long__firstdown" : 18,
+      "RUSH__long__nextdown" : 16,
+      "RUSH__long__touchdown" : 20,
       "RUSH__none__firstdown" : 11,
       "RUSH__none__nextdown" : 9,
       "RUSH__none__touchdown" : 13
