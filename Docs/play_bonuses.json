@@ -158,33 +158,49 @@
       "title" : "Result",
       "variants" : {
         "firstdown" : {
-          "order" : 1
-        },
-        "nextdown" : {
           "order" : 0
         },
         "touchdown" : {
+          "order" : 1
+        },
+        "turnover" : {
           "order" : 2
+        },
+        "defscore" : {
+          "order" : 3
         }
       }
     } ],
     "points" : {
-      "PASS" : 4,
-      "PASS__short" : 7,
-      "PASS__short__firstdown" : 12,
-      "PASS__short__nextdown" : 10,
-      "PASS__short__touchdown" : 14,
+      "PASS" : 3,
+
+      "PASS__none__firstdown" : 5,
+      "PASS__none__touchdown" : 13,
+      "PASS__none__turnover" : 23,
+      "PASS__none__defscore" : 33,
+
+      "none__none__firstdown" : 2,
+      "none__none__touchdown" : 10,
+      "none__none__turnover" : 20,
+      "none__none__defscore" : 30,
+
+      "PASS__short" : 6,
+      "PASS__short__firstdown" : 8,
+      "PASS__short__touchdown" : 16,
+      "PASS__short__turnover" : 26,
+      "PASS__short__defscore" : 36,
+
       "PASS__medium" : 9,
-      "PASS__medium__firstdown" : 14,
-      "PASS__medium__nextdown" : 12,
-      "PASS__medium__touchdown" : 16,
-      "PASS__long" : 11,
-      "PASS__long__firstdown" : 16,
-      "PASS__long__nextdown" : 14,
-      "PASS__long__touchdown" : 18,
-      "PASS__none__firstdown" : 9,
-      "PASS__none__nextdown" : 7,
-      "PASS__none__touchdown" : 11
+      "PASS__medium__firstdown" : 11,
+      "PASS__medium__touchdown" : 19,
+      "PASS__medium__turnover" : 29,
+      "PASS__medium__defscore" : 39,
+
+      "PASS__long" : 13,
+      "PASS__long__firstdown" : 15,
+      "PASS__long__touchdown" : 23,
+      "PASS__long__turnover" : 33,
+      "PASS__long__defscore" : 43
     }
   },
   "PUNT" : {
@@ -236,33 +252,49 @@
       "title" : "Result",
       "variants" : {
         "firstdown" : {
-          "order" : 1
-        },
-        "nextdown" : {
           "order" : 0
         },
         "touchdown" : {
+          "order" : 1
+        },
+        "turnover" : {
           "order" : 2
+        },
+        "defscore" : {
+          "order" : 3
         }
       }
     } ],
     "points" : {
-      "RUSH" : 6,
-      "RUSH__short" : 9,
-      "RUSH__short__firstdown" : 14,
-      "RUSH__short__nextdown" : 12,
-      "RUSH__short__touchdown" : 16,
+      "RUSH" : 4,
+
+      "RUSH__none__firstdown" : 6,
+      "RUSH__none__touchdown" : 14,
+      "RUSH__none__turnover" : 24,
+      "RUSH__none__defscore" : 34,
+
+      "none__none__firstdown" : 2,
+      "none__none__touchdown" : 10,
+      "none__none__turnover" : 20,
+      "none__none__defscore" : 30,
+
+      "RUSH__short" : 7,
+      "RUSH__short__firstdown" : 9,
+      "RUSH__short__touchdown" : 17,
+      "RUSH__short__turnover" : 27,
+      "RUSH__short__defscore" : 37,
+
       "RUSH__medium" : 11,
-      "RUSH__medium__firstdown" : 16,
-      "RUSH__medium__nextdown" : 14,
-      "RUSH__medium__touchdown" : 18,
-      "RUSH__long" : 13,
+      "RUSH__medium__firstdown" : 13,
+      "RUSH__medium__touchdown" : 21,
+      "RUSH__medium__turnover" : 31,
+      "RUSH__medium__defscore" : 41,
+
+      "RUSH__long" : 16,
       "RUSH__long__firstdown" : 18,
-      "RUSH__long__nextdown" : 16,
-      "RUSH__long__touchdown" : 20,
-      "RUSH__none__firstdown" : 11,
-      "RUSH__none__nextdown" : 9,
-      "RUSH__none__touchdown" : 13
+      "RUSH__long__touchdown" : 26,
+      "RUSH__long__turnover" : 36,
+      "RUSH__long__defscore" : 46
     }
   }
 }
