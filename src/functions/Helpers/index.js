@@ -127,9 +127,12 @@ export const getScoredBonusesVariants = (playType, points, playBonusesSystem) =>
       let variant = variants[i].split('__');
       if (variant.length > 2) {
         let skippedVariant = [].concat(variant);
-        skippedVariant[0] = 'none';
         skippedVariant[1] = 'none';
         let complexPickKey = skippedVariant.join('__');
+        pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
+
+        skippedVariant[0] = 'none';
+        complexPickKey = skippedVariant.join('__');
         pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
         // TODO: If need use more 2 additional bonus options then need improve this method and use
         // getSkippedPicksCombinations(pickVariants, variant, playTypeBonuses);
