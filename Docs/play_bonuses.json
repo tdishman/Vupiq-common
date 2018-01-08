@@ -296,5 +296,11 @@
       "RUSH__long__turnover" : 36,
       "RUSH__long__defscore" : 46
     }
+  },
+  "points": {
+    "none__none__firstdown" : 2,
+    "none__none__touchdown" : 10,
+    "none__none__turnover" : 20,
+    "none__none__defscore" : 30
   }
 }

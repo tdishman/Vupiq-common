@@ -11,6 +11,9 @@ export default class Down extends Base {
   isScored(variant) {
 // eslint-disable-next-line no-console
     debug(`${this.downType} === ${variant}`);
-    return this.downType === variant;
+    if (!variant || variant === 'none') {
+      return false;
+    }
+    return this.downType.indexOf(variant) > -1;
   }
 }
