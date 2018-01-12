@@ -1,8 +1,8 @@
 import BonusTypes from './Type';
 
 export default class PlayPointsBonus {
-  constructor({metric, variants}, playPoints) {
-    this.instance = new BonusTypes[metric](variants, playPoints);
+  constructor({metric, variants, resultFieldName}, playPoints) {
+    this.instance = new BonusTypes[metric](variants, playPoints, resultFieldName);
   }
 
   isScored() {

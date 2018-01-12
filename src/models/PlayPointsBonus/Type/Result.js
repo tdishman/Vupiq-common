@@ -1,12 +1,18 @@
+const debug = require('debug')('vupiq-common:bonus-type:result');
 import Base from './Base';
 
 export default class Result extends Base {
-  constructor(variants, playPoints) {
+  constructor(variants, playPoints, resultFieldName) {
     super(variants);
-    this.complete = playPoints.complete ? 'complete' : 'incomplete';
+    this.result = playPoints[resultFieldName] || '';
   }
 
   isScored(variant) {
-    return this.complete === (variant);
+// eslint-disable-next-line no-console
+    debug(`${this.result} === ${variant}`);
+    if (!variant || variant === 'none') {
+      return false;
+    }
+    return this.result.indexOf(variant) > -1;
   }
 }
