@@ -149,16 +149,22 @@ const processDetails = (pickVariants, details, basePick, points, playTypeBonuses
     let detail = details[i];
     if (PlayPointsBonus.typeIsExists(detail.metric)) {
       let playPointsBonus = new PlayPointsBonus(detail, points);
-      let scoredVariant = playPointsBonus.getScoredVariant();
-      complexPick.push(scoredVariant);
-      let complexPickKey = basePick + '__' + complexPick.join('__');
-      pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
-
+      let scoredVariants = playPointsBonus.getScoredVariants();
+      for (var j = 0; j < scoredVariants.length; j++) {
+        let scoredVariant = scoredVariants[j];
+        if (j > 0) {
+          complexPick.pop();
+        }
+        complexPick.push(scoredVariant);
+        let complexPickKey = basePick + '__' + complexPick.join('__');
+        pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
+      }
+/*
       let nextDetails = playPointsBonus.nextDetails(scoredVariant);
       if (nextDetails) {
         processDetails(pickVariants, nextDetails, basePick, points, playTypeBonuses, complexPick);
         break;
-      }
+      }*/
     }
     else {
       break;

@@ -11,15 +11,14 @@ export default class Base {
     return this.variants[variant] ? this.variants[variant].details : null;
   }
 
-  getScoredVariant() {
-    let variant = 'none';
+  getScoredVariants() {
+    let scoredVariants = [];
     let variantsKeys = Object.keys(this.variants);
     for (let i = 0; i < variantsKeys.length; i++) {
       if (this.isScored(variantsKeys[i])) {
-        variant = variantsKeys[i];
-        break;
+        scoredVariants.push(variantsKeys[i]);
       }
     }
-    return variant;
+    return scoredVariants;
   }
 }
