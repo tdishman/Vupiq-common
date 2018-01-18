@@ -72,7 +72,7 @@ export const findActualBetForPlay = (bets, play) => {
       let betBeforePlayStarted = latency > 0 ? bet.createdAt <= (playStartedAt + latency) : bet.createdAt + latency <= playStartedAt;
 
       if (betBeforePlayStarted) {
-        if (bet.position && bet.position !== 'none') {
+        if ((bet.position && bet.position !== 'none') || (!!bet.bonus && (bet.bonus !== 'none' && bet.bonus !== 'none__none' && bet.bonus !== 'none__none__none'))) {
           actualBet = bet;
         }
         break;
@@ -94,7 +94,7 @@ export const betIsCreatedBeforePlayStarted = (bet, playStartedAt) => {
 export const getBetPoints = (play, bet) => {
   let playStartedAtValid = (play.startedAt || 0) + (bet.latency > 0 ? bet.latency : 0);
 
-  if (playStartedAtValid > 0 && playStartedAtValid <= Date.now()) {
+  if (playStartedAtValid > 0) {
     let betPoints = play.points ? {
       pos: play.points[bet.position] || 0,
       bonus: play.points.bonuses ? play.points.bonuses[bet.bonus] || 0 : 0

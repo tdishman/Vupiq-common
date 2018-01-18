@@ -145,17 +145,12 @@
         "title": "Distance In Air",
         "variants": {
           "short": {
-            "max": 10,
+            "max": 15,
             "order": 0
           },
-          "medium": {
-            "max": 20,
-            "min": 11,
-            "order": 1
-          },
           "long": {
-            "min": 21,
-            "order": 2
+            "min": 15,
+            "order": 1
           }
         }
       },
@@ -175,6 +170,12 @@
           },
           "defscore": {
             "order": 3
+          },
+          "sack": {
+            "order": 4
+          },
+          "safety": {
+            "order": 5
           }
         }
       }
@@ -185,25 +186,28 @@
       "PASS__none__touchdown": 13,
       "PASS__none__turnover": 23,
       "PASS__none__defscore": 33,
+      "PASS__none__sack": 13,
+      "PASS__none__safety": 11,
       "none__none__firstdown": 2,
       "none__none__touchdown": 10,
       "none__none__turnover": 20,
       "none__none__defscore": 30,
+      "none__none__sack": 10,
+      "none__none__safety": 8,
       "PASS__short": 6,
       "PASS__short__firstdown": 8,
       "PASS__short__touchdown": 16,
       "PASS__short__turnover": 26,
       "PASS__short__defscore": 36,
-      "PASS__medium": 9,
-      "PASS__medium__firstdown": 11,
-      "PASS__medium__touchdown": 19,
-      "PASS__medium__turnover": 29,
-      "PASS__medium__defscore": 39,
+      "PASS__short__sack": 16,
+      "PASS__short__safety": 14,
       "PASS__long": 13,
       "PASS__long__firstdown": 15,
       "PASS__long__touchdown": 23,
       "PASS__long__turnover": 33,
-      "PASS__long__defscore": 43
+      "PASS__long__defscore": 43,
+      "PASS__long__sack": 23,
+      "PASS__long__safety": 21
     }
   },
   "PUNT": {
@@ -253,17 +257,12 @@
         "title": "Yards",
         "variants": {
           "short": {
-            "max": 3,
+            "max": 5,
             "order": 0
           },
-          "medium": {
-            "max": 7,
-            "min": 4,
-            "order": 1
-          },
           "long": {
-            "min": 8,
-            "order": 2
+            "min": 5,
+            "order": 1
           }
         }
       },
@@ -283,6 +282,12 @@
           },
           "defscore": {
             "order": 3
+          },
+          "sack": {
+            "order": 4
+          },
+          "safety": {
+            "order": 5
           }
         }
       }
@@ -293,31 +298,36 @@
       "RUSH__none__touchdown": 14,
       "RUSH__none__turnover": 24,
       "RUSH__none__defscore": 34,
+      "RUSH__none__sack": 14,
+      "RUSH__none__safety": 12,
       "none__none__firstdown": 2,
       "none__none__touchdown": 10,
       "none__none__turnover": 20,
       "none__none__defscore": 30,
+      "none__none__sack": 10,
+      "none__none__safety": 8,
       "RUSH__short": 7,
       "RUSH__short__firstdown": 9,
       "RUSH__short__touchdown": 17,
       "RUSH__short__turnover": 27,
       "RUSH__short__defscore": 37,
-      "RUSH__medium": 11,
-      "RUSH__medium__firstdown": 13,
-      "RUSH__medium__touchdown": 21,
-      "RUSH__medium__turnover": 31,
-      "RUSH__medium__defscore": 41,
+      "RUSH__short__sack": 17,
+      "RUSH__short__safety": 15,
       "RUSH__long": 16,
       "RUSH__long__firstdown": 18,
       "RUSH__long__touchdown": 26,
       "RUSH__long__turnover": 36,
-      "RUSH__long__defscore": 46
+      "RUSH__long__defscore": 46,
+      "RUSH__long__sack": 26,
+      "RUSH__long__safety": 24
     }
   },
   "points": {
     "none__none__firstdown": 2,
     "none__none__touchdown": 10,
     "none__none__turnover": 20,
-    "none__none__defscore": 30
+    "none__none__defscore": 30,
+    "none__none__sack": 10,
+    "none__none__safety": 8
   }
 }

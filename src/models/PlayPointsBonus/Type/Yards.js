@@ -3,23 +3,39 @@ import Base from './Base';
 export default class Yards extends Base {
   constructor(variants, playPoints) {
     super(variants);
-    this.yards = playPoints.yardsGained;
+    this.yardsGained = playPoints.yardsGained || playPoints.yardsGained === 0 ? playPoints.yardsGained : null;
+    this.attYardsGained = playPoints.attYardsGained || playPoints.attYardsGained === 0 ? playPoints.attYardsGained : null;
+    this.nullified = playPoints.nullified;
   }
 
   isScored(variantKey) {
+    if (this.nullified) return false;
+    let scored = false;
+
+    if (this.yardsGained !== null) {
+      scored = this.checkVariant(this.yardsGained, variantKey);
+    }
+    if (!scored && this.attYardsGained !== null) {
+      scored = this.checkVariant(this.attYardsGained, variantKey);
+    }
+
+    return scored;
+  }
+
+  checkVariant(yardsValue, variantKey) {
     let scored = false;
     let variant = this.variants[variantKey];
     let maxIsPresent = variant.max !== null && variant.max !== undefined;
     let minIsPresent = variant.min !== null && variant.min !== undefined;
 
     if (maxIsPresent && minIsPresent) {
-      scored = this.yards >= variant.min && this.yards <= variant.max;
+      scored = yardsValue >= variant.min && yardsValue <= variant.max;
     }
     else if (maxIsPresent) {
-      scored = this.yards <= variant.max;
+      scored = yardsValue <= variant.max;
     }
     else if (minIsPresent) {
-      scored = this.yards >= variant.min;
+      scored = yardsValue >= variant.min;
     }
     return scored;
   }
