@@ -4,7 +4,7 @@ import PlayPointsBonus from '../../models/PlayPointsBonus';
 const debug = require('debug')('vupiq-common:functions:helpers');
 
 export const playIsScoring = play => {
-  switch (play.base.type) {
+  switch (play.base.calculatedType || play.base.type) {
     case playTypes.TYPE_CONVERSION:
     case playTypes.TYPE_RUSH:
     case playTypes.TYPE_PASS:
