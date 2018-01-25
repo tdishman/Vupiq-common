@@ -40,8 +40,7 @@ export const getInitialPlay = () => {
       scoring: playTypes.SCORE_NONE,
       turnover: playTypes.TURNOVER_NONE,
       yardsGained: 0,
-      description: '',
-      penalty: false
+      description: ''
     }
   };
 };

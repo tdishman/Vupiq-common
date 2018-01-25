@@ -5,11 +5,9 @@ export default class Yards extends Base {
     super(variants);
     this.yardsGained = playPoints.yardsGained || playPoints.yardsGained === 0 ? playPoints.yardsGained : null;
     this.attYardsGained = playPoints.attYardsGained || playPoints.attYardsGained === 0 ? playPoints.attYardsGained : null;
-    this.nullified = playPoints.nullified;
   }
 
   isScored(variantKey) {
-    if (this.nullified) return false;
     let scored = false;
 
     if (this.yardsGained !== null) {

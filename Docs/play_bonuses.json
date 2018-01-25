@@ -123,6 +123,12 @@
           },
           "outOfBounds": {
             "order": 5
+          },
+          "returnedTD": {
+            "order": 6
+          },
+          "turnover": {
+            "order": 7
           }
         }
       }
@@ -134,7 +140,9 @@
       "KICKOFF__faircatch": 20,
       "KICKOFF__outOfBounds": 7,
       "KICKOFF__returned": 3,
-      "KICKOFF__touchback": 3
+      "KICKOFF__touchback": 3,
+      "KICKOFF__returnedTD": 30,
+      "KICKOFF__turnover": 20
     }
   },
   "PASS": {

@@ -19,6 +19,9 @@ export default class Base {
         scoredVariants.push(variantsKeys[i]);
       }
     }
+    if (scoredVariants.length === 0) {
+      scoredVariants.push('none');
+    }
     return scoredVariants;
   }
 }
