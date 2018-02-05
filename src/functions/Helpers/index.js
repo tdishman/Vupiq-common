@@ -113,12 +113,11 @@ export const getScoredBonusesVariants = (playType, points, playBonusesSystem) =>
   let pickVariants = {};
   let playTypeBonuses = playBonusesSystem[playType];
   let basePick = playType;
-  let complexPick = [];
   pickVariants[basePick] = playTypeBonuses ? playTypeBonuses.points[basePick] || 0 : 0;
   let details = playTypeBonuses.details;
 
   // Recursive details processing
-  processDetails(pickVariants, details, basePick, points, playTypeBonuses, complexPick);
+  processDetails(pickVariants, details, basePick, points, playTypeBonuses);
 
   if (!playTypeBonuses.disabledSkip) {
     let variants = Object.keys(pickVariants);
@@ -143,27 +142,20 @@ export const getScoredBonusesVariants = (playType, points, playBonusesSystem) =>
   return pickVariants;
 };
 
-const processDetails = (pickVariants, details, basePick, points, playTypeBonuses, complexPick) => {
+const processDetails = (pickVariants, details, basePick, points, playTypeBonuses) => {
   for (let i = 0; i < details.length; i++) {
     let detail = details[i];
     if (PlayPointsBonus.typeIsExists(detail.metric)) {
       let playPointsBonus = new PlayPointsBonus(detail, points);
       let scoredVariants = playPointsBonus.getScoredVariants();
+      let pickVariantsKeys = Object.keys(pickVariants);
       for (var j = 0; j < scoredVariants.length; j++) {
-        let scoredVariant = scoredVariants[j];
-        if (j > 0) {
-          complexPick.pop();
+        var scoredVariant = scoredVariants[j];
+        for (var k = 0; k < pickVariantsKeys.length; k++) {
+          var complexPickKey = pickVariantsKeys[k] + '__' + scoredVariant;
+          pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
         }
-        complexPick.push(scoredVariant);
-        let complexPickKey = basePick + '__' + complexPick.join('__');
-        pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
       }
-/*
-      let nextDetails = playPointsBonus.nextDetails(scoredVariant);
-      if (nextDetails) {
-        processDetails(pickVariants, nextDetails, basePick, points, playTypeBonuses, complexPick);
-        break;
-      }*/
     }
     else {
       break;

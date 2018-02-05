@@ -9,7 +9,6 @@ let play = {
   'away': {'alias': '', 'score': 0},
   'base': {
     'description': '(9:16) 28-C.Hyde left guard to SF 44 for -2 yards (53-Z.Brown).',
-    'penalty': false,
     'safety': false,
     'scoring': false,
     'type': 'RUSH'
