@@ -1,341 +1,324 @@
 {
-  "CONVERSION": {
-    "order": 6,
-    "details": [
-      {
-        "metric": "ConversionCategory",
-        "title": "Type",
-        "variants": {
-          "pass": {
-            "order": 0
-          },
-          "rush": {
-            "order": 1
-          }
-        }
-      },
-      {
-        "metric": "ConversionResult",
-        "title": "Result",
-        "variants": {
-          "failed": {
-            "order": 1
-          },
-          "success": {
-            "order": 0
-          }
+  "CONVERSION" : {
+    "details" : [ {
+      "metric" : "ConversionCategory",
+      "title" : "Type",
+      "variants" : {
+        "pass" : {
+          "order" : 0
+        },
+        "rush" : {
+          "order" : 1
         }
       }
-    ],
-    "points": {
-      "CONVERSION": 0,
-      "CONVERSION__pass": 4,
-      "CONVERSION__pass__failed": 7,
-      "CONVERSION__pass__success": 7,
-      "CONVERSION__rush": 4,
-      "CONVERSION__rush__failed": 7,
-      "CONVERSION__rush__success": 7,
-      "CONVERSION__none__failed": 3,
-      "CONVERSION__none__success": 3
-    }
-  },
-  "EXTRA_POINT": {
-    "order": 5,
-    "details": [
-      {
-        "metric": "Result",
-        "resultFieldName": "extraPointResult",
-        "title": "Result",
-        "variants": {
-          "made": {
-            "order": 0
-          },
-          "missed": {
-            "order": 1
-          },
-          "blocked": {
-            "order": 2
-          }
+    }, {
+      "metric" : "ConversionResult",
+      "title" : "Result",
+      "variants" : {
+        "failed" : {
+          "order" : 1
+        },
+        "success" : {
+          "order" : 0
         }
       }
-    ],
-    "points": {
-      "EXTRA_POINT": 0,
-      "EXTRA_POINT__made": 1,
-      "EXTRA_POINT__missed": 10,
-      "EXTRA_POINT__blocked": 20
+    } ],
+    "order" : 6,
+    "points" : {
+      "CONVERSION" : 0,
+      "CONVERSION__none__failed" : 3,
+      "CONVERSION__none__success" : 3,
+      "CONVERSION__pass" : 4,
+      "CONVERSION__pass__failed" : 7,
+      "CONVERSION__pass__success" : 7,
+      "CONVERSION__rush" : 4,
+      "CONVERSION__rush__failed" : 7,
+      "CONVERSION__rush__success" : 7
     }
   },
-  "FIELD_GOAL": {
-    "order": 4,
-    "details": [
-      {
-        "metric": "Result",
-        "resultFieldName": "fieldGoalResult",
-        "title": "Result",
-        "variants": {
-          "blocked": {
-            "order": 3
-          },
-          "faked": {
-            "order": 2
-          },
-          "missed": {
-            "order": 1
-          },
-          "made": {
-            "order": 0
-          }
+  "EXTRA_POINT" : {
+    "details" : [ {
+      "metric" : "Result",
+      "resultFieldName" : "extraPointResult",
+      "title" : "Result",
+      "variants" : {
+        "blocked" : {
+          "order" : 2
+        },
+        "made" : {
+          "order" : 0
+        },
+        "missed" : {
+          "order" : 1
         }
       }
-    ],
-    "points": {
-      "FIELD_GOAL": 0,
-      "FIELD_GOAL__fake": 20,
-      "FIELD_GOAL__blocked": 15,
-      "FIELD_GOAL__missed": 7,
-      "FIELD_GOAL__made": 3
+    } ],
+    "order" : 5,
+    "points" : {
+      "EXTRA_POINT" : 0,
+      "EXTRA_POINT__blocked" : 20,
+      "EXTRA_POINT__made" : 1,
+      "EXTRA_POINT__missed" : 10
     }
   },
-  "KICKOFF": {
-    "order": 2,
-    "disabledSkip": true,
-    "details": [
-      {
-        "metric": "Result",
-        "resultFieldName": "kickoffType",
-        "title": "Type",
-        "variants": {
-          "onsideSuccessFalse": {
-            "order": 3
-          },
-          "onsideSuccessTrue": {
-            "order": 2
-          },
-          "returned": {
-            "order": 1
-          },
-          "faircatch": {
-            "order": 0
-          },
-          "touchback": {
-            "order": 4
-          },
-          "outOfBounds": {
-            "order": 5
-          },
-          "returnedTD": {
-            "order": 6
-          },
-          "turnover": {
-            "order": 7
-          }
+  "FIELD_GOAL" : {
+    "details" : [ {
+      "metric" : "Result",
+      "resultFieldName" : "fieldGoalResult",
+      "title" : "Result",
+      "variants" : {
+        "blocked" : {
+          "order" : 3
+        },
+        "faked" : {
+          "order" : 2
+        },
+        "made" : {
+          "order" : 0
+        },
+        "missed" : {
+          "order" : 1
         }
       }
-    ],
-    "points": {
-      "KICKOFF": 0,
-      "KICKOFF__onsideSuccessFalse": 15,
-      "KICKOFF__onsideSuccessTrue": 15,
-      "KICKOFF__faircatch": 20,
-      "KICKOFF__outOfBounds": 7,
-      "KICKOFF__returned": 3,
-      "KICKOFF__touchback": 3,
-      "KICKOFF__returnedTD": 30,
-      "KICKOFF__turnover": 20
+    } ],
+    "order" : 4,
+    "points" : {
+      "FIELD_GOAL" : 0,
+      "FIELD_GOAL__blocked" : 15,
+      "FIELD_GOAL__fake" : 20,
+      "FIELD_GOAL__made" : 3,
+      "FIELD_GOAL__missed" : 7
     }
   },
-  "PASS": {
-    "order": 0,
-    "details": [
-      {
-        "metric": "Yards",
-        "title": "Distance In Air",
-        "variants": {
-          "short": {
-            "max": 15,
-            "order": 0
-          },
-          "long": {
-            "min": 15,
-            "order": 1
-          }
-        }
-      },
-      {
-        "metric": "Result",
-        "resultFieldName": "downType",
-        "title": "Result",
-        "variants": {
-          "firstdown": {
-            "order": 0
-          },
-          "touchdown": {
-            "order": 1
-          },
-          "turnover": {
-            "order": 2
-          },
-          "defscore": {
-            "order": 3
-          },
-          "sack": {
-            "order": 4
-          },
-          "safety": {
-            "order": 5
-          }
+  "KICKOFF" : {
+    "details" : [ {
+      "metric" : "Result",
+      "resultFieldName" : "kickoffType",
+      "title" : "Type",
+      "variants" : {
+        "faircatch" : {
+          "order" : 0
+        },
+        "onsideSuccessFalse" : {
+          "order" : 3
+        },
+        "onsideSuccessTrue" : {
+          "order" : 2
+        },
+        "outOfBounds" : {
+          "order" : 5
+        },
+        "returned" : {
+          "order" : 1
+        },
+        "returnedTD" : {
+          "order" : 6
+        },
+        "touchback" : {
+          "order" : 4
+        },
+        "turnover" : {
+          "order" : 7
         }
       }
-    ],
-    "points": {
-      "PASS": 3,
-      "PASS__none__firstdown": 6,
-      "PASS__none__touchdown": 13,
-      "PASS__none__turnover": 23,
-      "PASS__none__defscore": 33,
-      "PASS__none__sack": 13,
-      "PASS__none__safety": 11,
-      "none__none__firstdown": 3,
-      "none__none__touchdown": 10,
-      "none__none__turnover": 20,
-      "none__none__defscore": 30,
-      "none__none__sack": 10,
-      "none__none__safety": 8,
-      "PASS__short": 5,
-      "PASS__short__firstdown": 8,
-      "PASS__short__touchdown": 15,
-      "PASS__short__turnover": 25,
-      "PASS__short__defscore": 35,
-      "PASS__short__sack": 15,
-      "PASS__short__safety": 13,
-      "PASS__long": 11,
-      "PASS__long__firstdown": 14,
-      "PASS__long__touchdown": 21,
-      "PASS__long__turnover": 31,
-      "PASS__long__defscore": 41,
-      "PASS__long__sack": 21,
-      "PASS__long__safety": 19
+    } ],
+    "disabledSkip" : true,
+    "order" : 2,
+    "points" : {
+      "KICKOFF" : 0,
+      "KICKOFF__faircatch" : 20,
+      "KICKOFF__onsideSuccessFalse" : 15,
+      "KICKOFF__onsideSuccessTrue" : 15,
+      "KICKOFF__outOfBounds" : 7,
+      "KICKOFF__returned" : 3,
+      "KICKOFF__returnedTD" : 30,
+      "KICKOFF__touchback" : 3,
+      "KICKOFF__turnover" : 20
     }
   },
-  "PUNT": {
-    "order": 3,
-    "details": [
-      {
-        "metric": "Result",
-        "resultFieldName": "puntResult",
-        "title": "Result",
-        "variants": {
-          "returned": {
-            "order": 0
-          },
-          "faircatch": {
-            "order": 1
-          },
-          "touchback": {
-            "order": 2
-          },
-          "outOfBounds": {
-            "order": 3
-          },
-          "blocked": {
-            "order": 4
-          },
-          "fake": {
-            "order": 5
-          }
+  "PASS" : {
+    "details" : [ {
+      "metric" : "Yards",
+      "title" : "Distance In Air",
+      "variants" : {
+        "long" : {
+          "min" : 15,
+          "order" : 1
+        },
+        "short" : {
+          "max" : 15,
+          "order" : 0
         }
       }
-    ],
-    "points": {
-      "PUNT": 0,
-      "PUNT__returned": 3,
-      "PUNT__faircatch": 3,
-      "PUNT__touchback": 3,
-      "PUNT__outOfBounds": 5,
-      "PUNT__blocked": 15,
-      "PUNT__fake": 20
-    }
-  },
-  "RUSH": {
-    "order": 1,
-    "details": [
-      {
-        "metric": "Yards",
-        "title": "Yards",
-        "variants": {
-          "short": {
-            "max": 5,
-            "order": 0
-          },
-          "long": {
-            "min": 5,
-            "order": 1
-          }
-        }
-      },
-      {
-        "metric": "Result",
-        "resultFieldName": "downType",
-        "title": "Result",
-        "variants": {
-          "firstdown": {
-            "order": 0
-          },
-          "touchdown": {
-            "order": 1
-          },
-          "turnover": {
-            "order": 2
-          },
-          "defscore": {
-            "order": 3
-          },
-          "sack": {
-            "order": 4
-          },
-          "safety": {
-            "order": 5
-          }
+    }, {
+      "metric" : "Result",
+      "resultFieldName" : "downType",
+      "title" : "Result",
+      "variants" : {
+        "defscore" : {
+          "order" : 3
+        },
+        "firstdown" : {
+          "order" : 0
+        },
+        "sack" : {
+          "order" : 4
+        },
+        "safety" : {
+          "order" : 5
+        },
+        "touchdown" : {
+          "order" : 1
+        },
+        "turnover" : {
+          "order" : 2
         }
       }
-    ],
-    "points": {
-      "RUSH": 3,
-      "RUSH__none__firstdown": 6,
-      "RUSH__none__touchdown": 13,
-      "RUSH__none__turnover": 23,
-      "RUSH__none__defscore": 33,
-      "RUSH__none__sack": 13,
-      "RUSH__none__safety": 11,
-      "none__none__firstdown": 3,
-      "none__none__touchdown": 10,
-      "none__none__turnover": 20,
-      "none__none__defscore": 30,
-      "none__none__sack": 10,
-      "none__none__safety": 8,
-      "RUSH__short": 5,
-      "RUSH__short__firstdown": 8,
-      "RUSH__short__touchdown": 15,
-      "RUSH__short__turnover": 25,
-      "RUSH__short__defscore": 35,
-      "RUSH__short__sack": 15,
-      "RUSH__short__safety": 13,
-      "RUSH__long": 11,
-      "RUSH__long__firstdown": 14,
-      "RUSH__long__touchdown": 21,
-      "RUSH__long__turnover": 31,
-      "RUSH__long__defscore": 41,
-      "RUSH__long__sack": 21,
-      "RUSH__long__safety": 19
+    } ],
+    "order" : 0,
+    "points" : {
+      "PASS" : 3,
+      "PASS__long" : 11,
+      "PASS__long__defscore" : 41,
+      "PASS__long__firstdown" : 14,
+      "PASS__long__sack" : 21,
+      "PASS__long__safety" : 19,
+      "PASS__long__touchdown" : 21,
+      "PASS__long__turnover" : 31,
+      "PASS__none__defscore" : 33,
+      "PASS__none__firstdown" : 6,
+      "PASS__none__sack" : 13,
+      "PASS__none__safety" : 11,
+      "PASS__none__touchdown" : 13,
+      "PASS__none__turnover" : 23,
+      "PASS__short" : 5,
+      "PASS__short__defscore" : 35,
+      "PASS__short__firstdown" : 8,
+      "PASS__short__sack" : 15,
+      "PASS__short__safety" : 13,
+      "PASS__short__touchdown" : 15,
+      "PASS__short__turnover" : 25,
+      "none__none__defscore" : 30,
+      "none__none__firstdown" : 3,
+      "none__none__sack" : 10,
+      "none__none__safety" : 8,
+      "none__none__touchdown" : 10,
+      "none__none__turnover" : 20
     }
   },
-  "points": {
-    "none__none__firstdown": 3,
-    "none__none__touchdown": 10,
-    "none__none__turnover": 20,
-    "none__none__defscore": 30,
-    "none__none__sack": 10,
-    "none__none__safety": 8
+  "PUNT" : {
+    "details" : [ {
+      "metric" : "Result",
+      "resultFieldName" : "puntResult",
+      "title" : "Result",
+      "variants" : {
+        "blocked" : {
+          "order" : 4
+        },
+        "faircatch" : {
+          "order" : 1
+        },
+        "fake" : {
+          "order" : 5
+        },
+        "outOfBounds" : {
+          "order" : 3
+        },
+        "returned" : {
+          "order" : 0
+        },
+        "touchback" : {
+          "order" : 2
+        }
+      }
+    } ],
+    "order" : 3,
+    "points" : {
+      "PUNT" : 0,
+      "PUNT__blocked" : 15,
+      "PUNT__faircatch" : 3,
+      "PUNT__fake" : 20,
+      "PUNT__outOfBounds" : 5,
+      "PUNT__returned" : 3,
+      "PUNT__touchback" : 3
+    }
+  },
+  "RUSH" : {
+    "details" : [ {
+      "metric" : "Yards",
+      "title" : "Yards",
+      "variants" : {
+        "long" : {
+          "min" : 5,
+          "order" : 1
+        },
+        "short" : {
+          "max" : 5,
+          "order" : 0
+        }
+      }
+    }, {
+      "metric" : "Result",
+      "resultFieldName" : "downType",
+      "title" : "Result",
+      "variants" : {
+        "defscore" : {
+          "order" : 3
+        },
+        "firstdown" : {
+          "order" : 0
+        },
+        "sack" : {
+          "order" : 4
+        },
+        "safety" : {
+          "order" : 5
+        },
+        "touchdown" : {
+          "order" : 1
+        },
+        "turnover" : {
+          "order" : 2
+        }
+      }
+    } ],
+    "order" : 1,
+    "points" : {
+      "RUSH" : 3,
+      "RUSH__long" : 11,
+      "RUSH__long__defscore" : 41,
+      "RUSH__long__firstdown" : 14,
+      "RUSH__long__sack" : 21,
+      "RUSH__long__safety" : 19,
+      "RUSH__long__touchdown" : 21,
+      "RUSH__long__turnover" : 31,
+      "RUSH__none__defscore" : 33,
+      "RUSH__none__firstdown" : 6,
+      "RUSH__none__sack" : 13,
+      "RUSH__none__safety" : 11,
+      "RUSH__none__touchdown" : 13,
+      "RUSH__none__turnover" : 23,
+      "RUSH__short" : 5,
+      "RUSH__short__defscore" : 35,
+      "RUSH__short__firstdown" : 8,
+      "RUSH__short__sack" : 15,
+      "RUSH__short__safety" : 13,
+      "RUSH__short__touchdown" : 15,
+      "RUSH__short__turnover" : 25,
+      "none__none__defscore" : 30,
+      "none__none__firstdown" : 3,
+      "none__none__sack" : 10,
+      "none__none__safety" : 8,
+      "none__none__touchdown" : 10,
+      "none__none__turnover" : 20
+    }
+  },
+  "points" : {
+    "none__none__defscore" : 30,
+    "none__none__firstdown" : 3,
+    "none__none__sack" : 10,
+    "none__none__safety" : 8,
+    "none__none__touchdown" : 10,
+    "none__none__turnover" : 20
   }
 }

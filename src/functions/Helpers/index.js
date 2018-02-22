@@ -142,7 +142,7 @@ export const getScoredBonusesVariants = (playType, points, playBonusesSystem) =>
   return pickVariants;
 };
 
-const processDetails = (pickVariants, details, basePick, points, playTypeBonuses) => {
+export const processDetails = (pickVariants, details, basePick, points, playTypeBonuses) => {
   for (let i = 0; i < details.length; i++) {
     let detail = details[i];
     if (PlayPointsBonus.typeIsExists(detail.metric)) {
