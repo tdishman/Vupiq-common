@@ -132,8 +132,6 @@ export const getScoredBonusesVariants = (playType, points, playBonusesSystem) =>
         skippedVariant[0] = 'none';
         complexPickKey = skippedVariant.join('__');
         pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
-        // TODO: If need use more 2 additional bonus options then need improve this method and use
-        // getSkippedPicksCombinations(pickVariants, variant, playTypeBonuses);
       }
     }
   }
@@ -160,43 +158,5 @@ export const processDetails = (pickVariants, details, basePick, points, playType
     else {
       break;
     }
-  }
-};
-
-// Complete solution for generate variants with skipped picks of any sequence of bonus picks > 2 bonus picks
-export const getSkippedPicksCombinations = (pickVariants, variant, playTypeBonuses) => {
-  let playType = variant.shift();
-  let lastElement = variant.pop();
-  let combinations = [];
-
-  for (let i = 0; i < variant.length; i++) {
-    let newVariant = [].concat(variant);
-    newVariant[i] = 'none';
-    combinations.push(newVariant);
-  }
-
-  for (let l = 0; l < variant.length; l++) {
-    let newVariant = [].concat(variant);
-    for (let k = l; k < variant.length; k++) {
-      newVariant[k] = 'none';
-    }
-    combinations.push(newVariant);
-  }
-
-  for (let g = variant.length - 1; g >= 0; g--) {
-    let newVariant = [].concat(variant);
-    for (let k = g; k >= 0; k--) {
-      newVariant[k] = 'none';
-    }
-    combinations.push(newVariant);
-  }
-
-  for (let j = 0; j < combinations.length; j++) {
-    // Add play type and last pick - it static elements
-    combinations[j].unshift(playType);
-    combinations[j].push(lastElement);
-
-    let complexPickKey = combinations[j].join('__');
-    pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
   }
 };
