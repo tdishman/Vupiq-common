@@ -6,5 +6,6 @@ import * as playKickoffTypes from './play-kickoff-types';
 import * as playFieldGoalResults from './play-fieldgoal-results';
 import * as playPuntResults from './play-punt-results';
 import * as playConversionResults from './play-conversion-results';
+import * as playerCardStatus from './card-statuses';
 
-export { playTypes, game, playDownTypes, playKickoffTypes, playFieldGoalResults, playPuntResults, playConversionResults, playYardTypes };
+export { playTypes, game, playDownTypes, playKickoffTypes, playFieldGoalResults, playPuntResults, playConversionResults, playYardTypes, playerCardStatus };
