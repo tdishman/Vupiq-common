@@ -1,4 +1,5 @@
 import * as playTypes from '../../constants/play-types';
+import * as cardStatuses from '../../constants/card-statuses';
 import * as gameConstants from '../../constants/game';
 import PlayPointsBonus from '../../models/PlayPointsBonus';
 const debug = require('debug')('vupiq-common:functions:helpers');
@@ -90,15 +91,20 @@ export const betIsCreatedBeforePlayStarted = (bet, playStartedAt) => {
   return bet.latency > 0 ? bet.createdAt <= (playStartedAt + bet.latency) : (bet.createdAt + bet.latency) <= playStartedAt;
 };
 
-export const getBetPoints = (play, bet) => {
+export const getBetPoints = (play, bet, playersCards = []) => {
   let playStartedAtValid = (play.startedAt || 0) + (bet.latency > 0 ? bet.latency : 0);
+  let playersCardsPoints = 0;
 
   if (playStartedAtValid > 0) {
+    for (let i = 0; i < playersCards.length; i++) {
+      playersCardsPoints = playersCardsPoints + ((play.points.playersBonuses || {})[playersCards[i]] || 0);
+    }
     let betPoints = play.points ? {
       pos: play.points[bet.position] || 0,
+      playersCardsPoints: playersCardsPoints || 0,
       bonus: play.points.bonuses ? play.points.bonuses[bet.bonus] || 0 : 0
     } : {pos: 0, bonus: 0};
-    betPoints.total = betPoints.pos + betPoints.bonus;
+    betPoints.total = betPoints.pos + betPoints.bonus + betPoints.playersCardsPoints;
     return betPoints;
   }
 
@@ -132,6 +138,23 @@ export const getScoredBonusesVariants = (playType, points, playBonusesSystem) =>
         skippedVariant[0] = 'none';
         complexPickKey = skippedVariant.join('__');
         pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
+      }
+    }
+  }
+
+  debug(JSON.stringify(pickVariants));
+  return pickVariants;
+};
+
+export const getScoredPlayersVariants = (playStatistics, playBonusesSystem) => {
+  let pickVariants = {};
+  let playersStatusesPoints = playBonusesSystem.playersStatusesPoints || {};
+  let statuses = Object.values(cardStatuses);
+
+  for (let i = 0, j = playStatistics.length; i < j; i++) {
+    if (playStatistics[i].player) {
+      for (let k = 0, m = statuses.length; k < m; k++) {
+        pickVariants[`${playStatistics[i].player.id}__${statuses[k]}`] = playersStatusesPoints[statuses[k]] || 0;
       }
     }
   }
