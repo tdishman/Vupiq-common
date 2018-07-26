@@ -9,7 +9,7 @@ export default class Down extends Base {
   }
 
   isScored(variant) {
-// eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console
     debug(`${this.downType} === ${variant}`);
     if (!variant || variant === 'none') {
       return false;

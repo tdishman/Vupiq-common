@@ -19,7 +19,13 @@ export const playIsScoring = play => {
   }
 };
 
-export const gameIsActive = game => [gameConstants.INPROGRESS, gameConstants.HALFTIME].indexOf(game.info.status) > -1;
+export const gameIsActive = game => {
+  return (
+    [gameConstants.INPROGRESS, gameConstants.HALFTIME].indexOf(
+      game.info.status
+    ) > -1
+  );
+};
 
 export const getInitialPlay = () => {
   return {
@@ -49,8 +55,7 @@ export const getInitialPlay = () => {
 export const toOrdinal = value => {
   if ([11, 12, 13].indexOf(value % 100) > -1) {
     return value + 'th';
-  }
-  else {
+  } else {
     return (
       value +
       ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'][value % 10]
@@ -64,15 +69,23 @@ export const findActualBetForPlay = (bets, play) => {
   let playStartedAt = play.startedAt || 0;
   if (sortedBets.length === 1) {
     actualBet = sortedBets[0];
-  }
-  else {
+  } else {
     for (let i = 0; i < sortedBets.length; i++) {
       let bet = sortedBets[i];
       let latency = bet.latency || 0;
-      let betBeforePlayStarted = latency > 0 ? bet.createdAt <= (playStartedAt + latency) : bet.createdAt + latency <= playStartedAt;
+      let betBeforePlayStarted =
+        latency > 0
+          ? bet.createdAt <= playStartedAt + latency
+          : bet.createdAt + latency <= playStartedAt;
 
       if (betBeforePlayStarted) {
-        if ((bet.position && bet.position !== 'none') || (!!bet.bonus && (bet.bonus !== 'none' && bet.bonus !== 'none__none' && bet.bonus !== 'none__none__none'))) {
+        if (
+          (bet.position && bet.position !== 'none') ||
+          (!!bet.bonus &&
+            (bet.bonus !== 'none' &&
+              bet.bonus !== 'none__none' &&
+              bet.bonus !== 'none__none__none'))
+        ) {
           actualBet = bet;
         }
         break;
@@ -84,27 +97,35 @@ export const findActualBetForPlay = (bets, play) => {
 
 export const getLatencyGroup = milliseconds => {
   milliseconds = milliseconds || 0;
-  return (milliseconds / 1000 | 0) * 1000;
+  return ((milliseconds / 1000) | 0) * 1000;
 };
 
 export const betIsCreatedBeforePlayStarted = (bet, playStartedAt) => {
-  return bet.latency > 0 ? bet.createdAt <= (playStartedAt + bet.latency) : (bet.createdAt + bet.latency) <= playStartedAt;
+  return bet.latency > 0
+    ? bet.createdAt <= playStartedAt + bet.latency
+    : bet.createdAt + bet.latency <= playStartedAt;
 };
 
 export const getBetPoints = (play, bet, playersCards = []) => {
-  let playStartedAtValid = (play.startedAt || 0) + (bet.latency > 0 ? bet.latency : 0);
+  let playStartedAtValid =
+    (play.startedAt || 0) + (bet.latency > 0 ? bet.latency : 0);
   let playersCardsPoints = 0;
 
   if (playStartedAtValid > 0) {
     for (let i = 0; i < playersCards.length; i++) {
-      playersCardsPoints = playersCardsPoints + ((play.points.playersBonuses || {})[playersCards[i]] || 0);
+      playersCardsPoints =
+        playersCardsPoints +
+        ((play.points.playersBonuses || {})[playersCards[i]] || 0);
     }
-    let betPoints = play.points ? {
-      pos: play.points[bet.position] || 0,
-      playersCardsPoints: playersCardsPoints || 0,
-      bonus: play.points.bonuses ? play.points.bonuses[bet.bonus] || 0 : 0
-    } : {pos: 0, bonus: 0};
-    betPoints.total = betPoints.pos + betPoints.bonus + betPoints.playersCardsPoints;
+    let betPoints = play.points
+      ? {
+          pos: play.points[bet.position] || 0,
+          playersCardsPoints: playersCardsPoints || 0,
+          bonus: play.points.bonuses ? play.points.bonuses[bet.bonus] || 0 : 0
+        }
+      : { pos: 0, bonus: 0 };
+    betPoints.total =
+      betPoints.pos + betPoints.bonus + betPoints.playersCardsPoints;
     return betPoints;
   }
 
@@ -115,11 +136,17 @@ export const shouldProcessPoints = play => {
   return play.endedAt > 0 && playIsScoring(play);
 };
 
-export const getScoredBonusesVariants = (playType, points, playBonusesSystem) => {
+export const getScoredBonusesVariants = (
+  playType,
+  points,
+  playBonusesSystem
+) => {
   let pickVariants = {};
   let playTypeBonuses = playBonusesSystem[playType];
   let basePick = playType;
-  pickVariants[basePick] = playTypeBonuses ? playTypeBonuses.points[basePick] || 0 : 0;
+  pickVariants[basePick] = playTypeBonuses
+    ? playTypeBonuses.points[basePick] || 0
+    : 0;
   let details = playTypeBonuses.details;
 
   // Recursive details processing
@@ -133,11 +160,13 @@ export const getScoredBonusesVariants = (playType, points, playBonusesSystem) =>
         let skippedVariant = [].concat(variant);
         skippedVariant[1] = 'none';
         let complexPickKey = skippedVariant.join('__');
-        pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
+        pickVariants[complexPickKey] =
+          playTypeBonuses.points[complexPickKey] || 0;
 
         skippedVariant[0] = 'none';
         complexPickKey = skippedVariant.join('__');
-        pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
+        pickVariants[complexPickKey] =
+          playTypeBonuses.points[complexPickKey] || 0;
       }
     }
   }
@@ -154,7 +183,8 @@ export const getScoredPlayersVariants = (playStatistics, playBonusesSystem) => {
   for (let i = 0, j = playStatistics.length; i < j; i++) {
     if (playStatistics[i].player) {
       for (let k = 0, m = statuses.length; k < m; k++) {
-        pickVariants[`${playStatistics[i].player.id}__${statuses[k]}`] = playersStatusesPoints[statuses[k]] || 0;
+        pickVariants[`${playStatistics[i].player.id}__${statuses[k]}`] =
+          playersStatusesPoints[statuses[k]] || 0;
       }
     }
   }
@@ -163,7 +193,13 @@ export const getScoredPlayersVariants = (playStatistics, playBonusesSystem) => {
   return pickVariants;
 };
 
-export const processDetails = (pickVariants, details, basePick, points, playTypeBonuses) => {
+export const processDetails = (
+  pickVariants,
+  details,
+  basePick,
+  points,
+  playTypeBonuses
+) => {
   for (let i = 0; i < details.length; i++) {
     let detail = details[i];
     if (PlayPointsBonus.typeIsExists(detail.metric)) {
@@ -174,11 +210,11 @@ export const processDetails = (pickVariants, details, basePick, points, playType
         var scoredVariant = scoredVariants[j];
         for (var k = 0; k < pickVariantsKeys.length; k++) {
           var complexPickKey = pickVariantsKeys[k] + '__' + scoredVariant;
-          pickVariants[complexPickKey] = playTypeBonuses.points[complexPickKey] || 0;
+          pickVariants[complexPickKey] =
+            playTypeBonuses.points[complexPickKey] || 0;
         }
       }
-    }
-    else {
+    } else {
       break;
     }
   }

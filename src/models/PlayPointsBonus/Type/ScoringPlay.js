@@ -9,7 +9,7 @@ export default class OnsideKick extends Base {
   }
 
   isScored(variant) {
-// eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console
     debug(`${this.value} === ${variant}`);
     return this.value === variant;
   }

@@ -9,7 +9,7 @@ export default class ConversionCategory extends Base {
   }
 
   isScored(variant) {
-// eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console
     debug(`${this.conversionCategory} === ${variant}`);
     return this.conversionCategory === variant;
   }

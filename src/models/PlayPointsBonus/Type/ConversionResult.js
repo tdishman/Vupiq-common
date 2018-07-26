@@ -9,7 +9,7 @@ export default class ConversionResult extends Base {
   }
 
   isScored(variant) {
-// eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console
     debug(`${this.result} === ${variant}`);
     return this.result === variant;
   }
