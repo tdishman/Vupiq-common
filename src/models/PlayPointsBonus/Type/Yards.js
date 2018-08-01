@@ -18,7 +18,8 @@ export default class Yards extends Base {
 
     if (this.yardsGained !== null) {
       scored = this.checkVariant(this.yardsGained, variantKey);
-    } else if (!scored && this.attYardsGained !== null) {
+    }
+    if (!scored && this.attYardsGained !== null) {
       scored = this.checkVariant(this.attYardsGained, variantKey);
     }
 
