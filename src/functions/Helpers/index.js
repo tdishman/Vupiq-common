@@ -123,7 +123,7 @@ export const getBetPoints = (play, bet, playersCards = []) => {
           playersCardsPoints: playersCardsPoints || 0,
           bonus: play.points.bonuses ? play.points.bonuses[bet.bonus] || 0 : 0
         }
-      : { pos: 0, bonus: 0 };
+      : { pos: 0, bonus: 0, playersCardsPoints: 0 };
     betPoints.total =
       betPoints.pos + betPoints.bonus + betPoints.playersCardsPoints;
     return betPoints;
