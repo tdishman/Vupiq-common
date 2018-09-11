@@ -181,7 +181,7 @@ describe('Helpers', () => {
   });
   describe('processDetails', () => {
     it('processDetails should gen multiple variants of score picks', () => {
-      let pickVariants = { [TYPE_RUSH]: 1 };
+      let pickVariants = { [TYPE_RUSH]: 3 };
       let details = [
         {
           metric: 'Yards',
@@ -201,6 +201,7 @@ describe('Helpers', () => {
           metric: 'Result',
           resultFieldName: 'downType',
           title: 'Result',
+          additional: true,
           variants: {
             defscore: {
               order: 3
@@ -228,14 +229,166 @@ describe('Helpers', () => {
         yardsGained: 5
       };
       let expectedpickVariants = {
-        RUSH: 1,
+        RUSH: 3,
+        RUSH__long: 11,
+        RUSH__long__defscore: 41,
+        RUSH__long__touchdown: 21,
+        RUSH__none__defscore: 33,
+        RUSH__none__touchdown: 13,
+        RUSH__short: 5,
+        RUSH__short__defscore: 35,
+        RUSH__short__touchdown: 15,
+        none__none__defscore: 30,
+        none__none__touchdown: 10
+      };
+      processDetails(
+        pickVariants,
+        details,
+        '',
+        points,
+        playTypeBonuses[TYPE_RUSH],
+        true,
+        false
+      );
+      assert.deepEqual(pickVariants, expectedpickVariants);
+    });
+
+    it('processDetails should gen multiple variants of score picks for non-strict scheme', () => {
+      let pickVariants = { [TYPE_RUSH]: 3 };
+      let details = [
+        {
+          metric: 'Yards',
+          title: 'Yards',
+          variants: {
+            long: {
+              min: 5,
+              order: 1
+            },
+            short: {
+              max: 5,
+              order: 0
+            }
+          }
+        },
+        {
+          metric: 'Result',
+          resultFieldName: 'downType',
+          title: 'Result',
+          additional: true,
+          variants: {
+            defscore: {
+              order: 3
+            },
+            firstdown: {
+              order: 0
+            },
+            sack: {
+              order: 4
+            },
+            safety: {
+              order: 5
+            },
+            touchdown: {
+              order: 1
+            },
+            turnover: {
+              order: 2
+            }
+          }
+        }
+      ];
+      let points = {
+        downType: ['touchdown', 'defscore'],
+        yardsGained: 5
+      };
+      let expectedpickVariants = {
+        RUSH: 3,
         RUSH__long: 11,
         RUSH__short: 5,
-        RUSH__defscore: 0,
         RUSH__long__defscore: 41,
+        RUSH__none__defscore: 33,
+        none__none__defscore: 30,
         RUSH__short__defscore: 35,
-        RUSH__touchdown: 0,
         RUSH__long__touchdown: 21,
+        RUSH__none__touchdown: 13,
+        none__none__touchdown: 10,
+        RUSH__short__touchdown: 15,
+        RUSH__long__firstdown: 11,
+        RUSH__short__firstdown: 5,
+        RUSH__long__sack: 11,
+        RUSH__short__sack: 5,
+        RUSH__long__safety: 11,
+        RUSH__short__safety: 5,
+        RUSH__long__turnover: 11,
+        RUSH__short__turnover: 5
+      };
+      processDetails(
+        pickVariants,
+        details,
+        '',
+        points,
+        playTypeBonuses[TYPE_RUSH],
+        false,
+        false
+      );
+      assert.deepEqual(pickVariants, expectedpickVariants);
+    });
+
+    it('processDetails should gen multiple variants of score picks for disabledSkip and strict scheme', () => {
+      let pickVariants = { [TYPE_RUSH]: 3 };
+      let details = [
+        {
+          metric: 'Yards',
+          title: 'Yards',
+          variants: {
+            long: {
+              min: 5,
+              order: 1
+            },
+            short: {
+              max: 5,
+              order: 0
+            }
+          }
+        },
+        {
+          metric: 'Result',
+          resultFieldName: 'downType',
+          title: 'Result',
+          additional: true,
+          variants: {
+            defscore: {
+              order: 3
+            },
+            firstdown: {
+              order: 0
+            },
+            sack: {
+              order: 4
+            },
+            safety: {
+              order: 5
+            },
+            touchdown: {
+              order: 1
+            },
+            turnover: {
+              order: 2
+            }
+          }
+        }
+      ];
+      let points = {
+        downType: ['touchdown', 'defscore'],
+        yardsGained: 5
+      };
+      let expectedpickVariants = {
+        RUSH: 3,
+        RUSH__long: 11,
+        RUSH__long__defscore: 41,
+        RUSH__long__touchdown: 21,
+        RUSH__short: 5,
+        RUSH__short__defscore: 35,
         RUSH__short__touchdown: 15
       };
       processDetails(
@@ -243,7 +396,79 @@ describe('Helpers', () => {
         details,
         '',
         points,
-        playTypeBonuses[TYPE_RUSH]
+        playTypeBonuses[TYPE_RUSH],
+        true,
+        true
+      );
+      assert.deepEqual(pickVariants, expectedpickVariants);
+    });
+
+    it('processDetails should gen multiple variants of score picks for disabledSkip and non-strict scheme', () => {
+      let pickVariants = { [TYPE_RUSH]: 3 };
+      let details = [
+        {
+          metric: 'Yards',
+          title: 'Yards',
+          variants: {
+            long: {
+              min: 15,
+              order: 1
+            },
+            short: {
+              max: 15,
+              order: 0
+            }
+          }
+        },
+        {
+          metric: 'Result',
+          resultFieldName: 'downType',
+          title: 'Result',
+          additional: true,
+          variants: {
+            defscore: {
+              order: 3
+            },
+            firstdown: {
+              order: 0
+            },
+            sack: {
+              order: 4
+            },
+            safety: {
+              order: 5
+            },
+            touchdown: {
+              order: 1
+            },
+            turnover: {
+              order: 2
+            }
+          }
+        }
+      ];
+      let points = {
+        downType: ['touchdown', 'defscore'],
+        yardsGained: 5
+      };
+      let expectedpickVariants = {
+        RUSH: 3,
+        RUSH__short: 5,
+        RUSH__short__defscore: 35,
+        RUSH__short__touchdown: 15,
+        RUSH__short__firstdown: 5,
+        RUSH__short__sack: 5,
+        RUSH__short__safety: 5,
+        RUSH__short__turnover: 5
+      };
+      processDetails(
+        pickVariants,
+        details,
+        '',
+        points,
+        playTypeBonuses[TYPE_RUSH],
+        false,
+        true
       );
       assert.deepEqual(pickVariants, expectedpickVariants);
     });
@@ -257,16 +482,14 @@ describe('Helpers', () => {
       let expectedpickVariants = {
         RUSH: 3,
         RUSH__long: 11,
-        RUSH__short: 5,
-        RUSH__defscore: 0,
         RUSH__long__defscore: 41,
-        RUSH__short__defscore: 35,
-        RUSH__touchdown: 0,
         RUSH__long__touchdown: 21,
-        RUSH__short__touchdown: 15,
         RUSH__none__defscore: 33,
-        none__none__defscore: 30,
         RUSH__none__touchdown: 13,
+        RUSH__short: 5,
+        RUSH__short__defscore: 35,
+        RUSH__short__touchdown: 15,
+        none__none__defscore: 30,
         none__none__touchdown: 10
       };
       assert.deepEqual(

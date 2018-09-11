@@ -12,6 +12,7 @@
         }
       }
     }, {
+      "additional" : true,
       "metric" : "ConversionResult",
       "title" : "Result",
       "variants" : {
@@ -38,6 +39,7 @@
   },
   "EXTRA_POINT" : {
     "details" : [ {
+      "additional" : true,
       "metric" : "Result",
       "resultFieldName" : "extraPointResult",
       "title" : "Result",
@@ -63,6 +65,7 @@
   },
   "FIELD_GOAL" : {
     "details" : [ {
+      "additional" : true,
       "metric" : "Result",
       "resultFieldName" : "fieldGoalResult",
       "title" : "Result",
@@ -92,6 +95,7 @@
   },
   "KICKOFF" : {
     "details" : [ {
+      "additional" : true,
       "metric" : "Result",
       "resultFieldName" : "kickoffType",
       "title" : "Type",
@@ -151,6 +155,7 @@
         }
       }
     }, {
+      "additional" : true,
       "metric" : "Result",
       "resultFieldName" : "downType",
       "title" : "Result",
@@ -208,6 +213,7 @@
   },
   "PUNT" : {
     "details" : [ {
+      "additional" : true,
       "metric" : "Result",
       "resultFieldName" : "puntResult",
       "title" : "Result",
@@ -258,6 +264,7 @@
         }
       }
     }, {
+      "additional" : true,
       "metric" : "Result",
       "resultFieldName" : "downType",
       "title" : "Result",
@@ -313,6 +320,11 @@
       "none__none__turnover" : 20
     }
   },
+  "playersStatusesPoints" : {
+    "bronze" : 1,
+    "gold" : 3,
+    "silver" : 2
+  },
   "points" : {
     "none__none__defscore" : 30,
     "none__none__firstdown" : 3,
@@ -320,5 +332,6 @@
     "none__none__safety" : 8,
     "none__none__touchdown" : 10,
     "none__none__turnover" : 20
-  }
+  },
+  "strict" : true
 }

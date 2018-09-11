@@ -149,27 +149,15 @@ export const getScoredBonusesVariants = (
     : 0;
   let details = playTypeBonuses.details;
 
-  // Recursive details processing
-  processDetails(pickVariants, details, basePick, points, playTypeBonuses);
-
-  if (!playTypeBonuses.disabledSkip) {
-    let variants = Object.keys(pickVariants);
-    for (let i = 0; i < variants.length; i++) {
-      let variant = variants[i].split('__');
-      if (variant.length > 2) {
-        let skippedVariant = [].concat(variant);
-        skippedVariant[1] = 'none';
-        let complexPickKey = skippedVariant.join('__');
-        pickVariants[complexPickKey] =
-          playTypeBonuses.points[complexPickKey] || 0;
-
-        skippedVariant[0] = 'none';
-        complexPickKey = skippedVariant.join('__');
-        pickVariants[complexPickKey] =
-          playTypeBonuses.points[complexPickKey] || 0;
-      }
-    }
-  }
+  processDetails(
+    pickVariants,
+    details,
+    basePick,
+    points,
+    playTypeBonuses,
+    !!playBonusesSystem.strict,
+    !!playBonusesSystem.disabledSkip
+  );
 
   debug(JSON.stringify(pickVariants));
   return pickVariants;
@@ -198,7 +186,9 @@ export const processDetails = (
   details,
   basePick,
   points,
-  playTypeBonuses
+  playTypeBonuses,
+  strictMode,
+  disabledSkip
 ) => {
   for (let i = 0; i < details.length; i++) {
     let detail = details[i];
@@ -206,12 +196,52 @@ export const processDetails = (
       let playPointsBonus = new PlayPointsBonus(detail, points);
       let scoredVariants = playPointsBonus.getScoredVariants();
       let pickVariantsKeys = Object.keys(pickVariants);
-      for (var j = 0; j < scoredVariants.length; j++) {
-        var scoredVariant = scoredVariants[j];
-        for (var k = 0; k < pickVariantsKeys.length; k++) {
-          var complexPickKey = pickVariantsKeys[k] + '__' + scoredVariant;
-          pickVariants[complexPickKey] =
-            playTypeBonuses.points[complexPickKey] || 0;
+      let allVariantsKeys = Object.keys(detail.variants);
+
+      for (let j = 0; j < scoredVariants.length; j++) {
+        let scoredVariant = scoredVariants[j];
+        for (let k = 0; k < pickVariantsKeys.length; k++) {
+          let complexPickKey = pickVariantsKeys[k] + '__' + scoredVariant;
+          let variant = complexPickKey.split('__');
+          if (variant.length === i + 2) {
+            pickVariants[complexPickKey] =
+              playTypeBonuses.points[complexPickKey] || 0;
+            if (!disabledSkip) {
+              if (variant.length > 2) {
+                let skippedVariant = [].concat(variant);
+                skippedVariant[1] = 'none';
+                complexPickKey = skippedVariant.join('__');
+                pickVariants[complexPickKey] =
+                  playTypeBonuses.points[complexPickKey] || 0;
+
+                skippedVariant[0] = 'none';
+                complexPickKey = skippedVariant.join('__');
+                pickVariants[complexPickKey] =
+                  playTypeBonuses.points[complexPickKey] || 0;
+              }
+            }
+          }
+        }
+      }
+
+      for (let j = 0; j < allVariantsKeys.length; j++) {
+        let variant = allVariantsKeys[j];
+        let scoredVariant = scoredVariants[scoredVariants.indexOf(variant)];
+        console.log(scoredVariants);
+        for (let k = 0; k < pickVariantsKeys.length; k++) {
+          if (pickVariantsKeys[k].split('__').length + 1 === i + 2) {
+            if (scoredVariant) {
+              let complexPickKey = pickVariantsKeys[k] + '__' + scoredVariant;
+              pickVariants[complexPickKey] =
+                pickVariants[complexPickKey] > 0
+                  ? pickVariants[complexPickKey]
+                  : playTypeBonuses.points[pickVariantsKeys[k]] || 0;
+            } else if (!strictMode && detail.additional) {
+              let complexPickKey = pickVariantsKeys[k] + '__' + variant;
+              pickVariants[complexPickKey] =
+                playTypeBonuses.points[pickVariantsKeys[k]] || 0;
+            }
+          }
         }
       }
     } else {
