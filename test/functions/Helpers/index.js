@@ -1,4 +1,5 @@
 import * as gameConstants from '../../../src/constants/game';
+import { TYPE_KICKOFF } from '../../../src/constants/play-types';
 let playTypeBonuses = require('../../../Docs/play_bonuses');
 let playTypes = require('../../../src/constants/play-types');
 let { TYPE_RUSH, TYPE_TIMEOUT } = require('../../../src/constants/play-types');
@@ -469,6 +470,68 @@ describe('Helpers', () => {
         playTypeBonuses[TYPE_RUSH],
         false,
         true
+      );
+      assert.deepEqual(pickVariants, expectedpickVariants);
+    });
+
+    it('processDetails should gen multiple variants of score picks for one detail and non-strict scheme', () => {
+      let pickVariants = { [TYPE_KICKOFF]: 0 };
+      let details = [
+        {
+          additional: true,
+          metric: 'Result',
+          resultFieldName: 'kickoffType',
+          title: 'Type',
+          variants: {
+            faircatch: {
+              order: 0
+            },
+            onsideSuccessFalse: {
+              order: 3
+            },
+            onsideSuccessTrue: {
+              order: 2
+            },
+            outOfBounds: {
+              order: 5
+            },
+            returned: {
+              order: 1
+            },
+            returnedTD: {
+              order: 6
+            },
+            touchback: {
+              order: 4
+            },
+            turnover: {
+              order: 7
+            }
+          }
+        }
+      ];
+      let points = {
+        kickoffType: ['returned']
+      };
+      let expectedpickVariants = {
+        KICKOFF: 0,
+        KICKOFF__faircatch: 0,
+        KICKOFF__onsideSuccessFalse: 0,
+        KICKOFF__onsideSuccessTrue: 0,
+        KICKOFF__outOfBounds: 0,
+        KICKOFF__returned: 3,
+        KICKOFF__returnedTD: 0,
+        KICKOFF__touchback: 0,
+        KICKOFF__turnover: 0
+      };
+      processDetails(
+        pickVariants,
+        details,
+        '',
+        points,
+        playTypeBonuses[TYPE_KICKOFF],
+        false,
+        false
       );
       assert.deepEqual(pickVariants, expectedpickVariants);
     });
