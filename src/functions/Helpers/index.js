@@ -227,7 +227,6 @@ export const processDetails = (
       for (let j = 0; j < allVariantsKeys.length; j++) {
         let variant = allVariantsKeys[j];
         let scoredVariant = scoredVariants[scoredVariants.indexOf(variant)];
-        console.log(scoredVariants);
         for (let k = 0; k < pickVariantsKeys.length; k++) {
           if (pickVariantsKeys[k].split('__').length + 1 === i + 2) {
             if (scoredVariant) {
