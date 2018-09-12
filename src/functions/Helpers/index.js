@@ -144,52 +144,25 @@ export const getScoredBonusesVariants = (
   let pickVariants = {};
   let playTypeBonuses = playBonusesSystem[playType];
   let basePick = playType;
+  let details = playTypeBonuses.details;
+
   pickVariants[basePick] = playTypeBonuses
     ? playTypeBonuses.points[basePick] || 0
     : 0;
-  let details = playTypeBonuses.details;
 
-  processDetails(
-    pickVariants,
-    details,
-    basePick,
-    points,
-    playTypeBonuses,
-    !!playBonusesSystem.strict,
-    !!playBonusesSystem.disabledSkip
-  );
-
-  debug(JSON.stringify(pickVariants));
-  return pickVariants;
-};
-
-export const getScoredPlayersVariants = (playStatistics, playBonusesSystem) => {
-  let pickVariants = {};
-  let playersStatusesPoints = playBonusesSystem.playersStatusesPoints || {};
-  let statuses = Object.values(cardStatuses);
-
-  for (let i = 0, j = playStatistics.length; i < j; i++) {
-    if (playStatistics[i].player) {
-      for (let k = 0, m = statuses.length; k < m; k++) {
-        pickVariants[`${playStatistics[i].player.id}__${statuses[k]}`] =
-          playersStatusesPoints[statuses[k]] || 0;
+  // Fill base pick variant with none additional options
+  if (!playTypeBonuses.disabledSkip) {
+    if (details.length > 1) {
+      let prevPickVariant = basePick;
+      for (let i = 0; i < details.length; i++) {
+        prevPickVariant = prevPickVariant + '__none';
+        pickVariants[prevPickVariant] = playTypeBonuses
+          ? playTypeBonuses.points[basePick] || 0
+          : 0;
       }
     }
   }
 
-  debug(JSON.stringify(pickVariants));
-  return pickVariants;
-};
-
-export const processDetails = (
-  pickVariants,
-  details,
-  basePick,
-  points,
-  playTypeBonuses,
-  strictMode,
-  disabledSkip
-) => {
   for (let i = 0; i < details.length; i++) {
     let detail = details[i];
     if (PlayPointsBonus.typeIsExists(detail.metric)) {
@@ -206,7 +179,7 @@ export const processDetails = (
           if (variant.length === i + 2) {
             pickVariants[complexPickKey] =
               playTypeBonuses.points[complexPickKey] || 0;
-            if (!disabledSkip) {
+            if (!playTypeBonuses.disabledSkip) {
               if (variant.length > 2) {
                 let skippedVariant = [].concat(variant);
                 skippedVariant[1] = 'none';
@@ -235,7 +208,7 @@ export const processDetails = (
                 pickVariants[complexPickKey] > 0
                   ? pickVariants[complexPickKey]
                   : playTypeBonuses.points[pickVariantsKeys[k]] || 0;
-            } else if (!strictMode && detail.additional) {
+            } else if (!playBonusesSystem.strict && detail.additional) {
               let complexPickKey = pickVariantsKeys[k] + '__' + variant;
               pickVariants[complexPickKey] =
                 playTypeBonuses.points[pickVariantsKeys[k]] || 0;
@@ -247,4 +220,24 @@ export const processDetails = (
       break;
     }
   }
+  debug(JSON.stringify(pickVariants));
+  return pickVariants;
+};
+
+export const getScoredPlayersVariants = (playStatistics, playBonusesSystem) => {
+  let pickVariants = {};
+  let playersStatusesPoints = playBonusesSystem.playersStatusesPoints || {};
+  let statuses = Object.values(cardStatuses);
+
+  for (let i = 0, j = playStatistics.length; i < j; i++) {
+    if (playStatistics[i].player) {
+      for (let k = 0, m = statuses.length; k < m; k++) {
+        pickVariants[`${playStatistics[i].player.id}__${statuses[k]}`] =
+          playersStatusesPoints[statuses[k]] || 0;
+      }
+    }
+  }
+
+  debug(JSON.stringify(pickVariants));
+  return pickVariants;
 };

@@ -183,6 +183,8 @@
     "order" : 0,
     "points" : {
       "PASS" : 3,
+      "PASS__none" : 3,
+      "PASS__none__none" : 3,
       "PASS__long" : 11,
       "PASS__long__defscore" : 41,
       "PASS__long__firstdown" : 14,
@@ -292,6 +294,8 @@
     "order" : 1,
     "points" : {
       "RUSH" : 3,
+      "RUSH__none" : 3,
+      "RUSH__none__none" : 3,
       "RUSH__long" : 11,
       "RUSH__long__defscore" : 41,
       "RUSH__long__firstdown" : 14,
