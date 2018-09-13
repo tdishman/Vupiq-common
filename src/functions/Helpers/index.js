@@ -273,7 +273,6 @@ export const getScoredBonusesVariants = (
       break;
     }
   }
-  console.log(nonScoredVariants);
   debug(JSON.stringify(pickVariants));
   return pickVariants;
 };
