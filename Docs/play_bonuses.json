@@ -34,7 +34,9 @@
       "CONVERSION__pass__success" : 7,
       "CONVERSION__rush" : 4,
       "CONVERSION__rush__failed" : 7,
-      "CONVERSION__rush__success" : 7
+      "CONVERSION__rush__success" : 7,
+      "none__none__failed" : 3,
+      "none__none__success" : 3
     }
   },
   "EXTRA_POINT" : {
@@ -183,8 +185,6 @@
     "order" : 0,
     "points" : {
       "PASS" : 3,
-      "PASS__none" : 3,
-      "PASS__none__none" : 3,
       "PASS__long" : 11,
       "PASS__long__defscore" : 41,
       "PASS__long__firstdown" : 14,
@@ -192,8 +192,10 @@
       "PASS__long__safety" : 19,
       "PASS__long__touchdown" : 21,
       "PASS__long__turnover" : 31,
+      "PASS__none" : 3,
       "PASS__none__defscore" : 33,
       "PASS__none__firstdown" : 6,
+      "PASS__none__none" : 3,
       "PASS__none__sack" : 13,
       "PASS__none__safety" : 11,
       "PASS__none__touchdown" : 13,
@@ -294,8 +296,6 @@
     "order" : 1,
     "points" : {
       "RUSH" : 3,
-      "RUSH__none" : 3,
-      "RUSH__none__none" : 3,
       "RUSH__long" : 11,
       "RUSH__long__defscore" : 41,
       "RUSH__long__firstdown" : 14,
@@ -303,8 +303,10 @@
       "RUSH__long__safety" : 19,
       "RUSH__long__touchdown" : 21,
       "RUSH__long__turnover" : 31,
+      "RUSH__none" : 3,
       "RUSH__none__defscore" : 33,
       "RUSH__none__firstdown" : 6,
+      "RUSH__none__none" : 3,
       "RUSH__none__sack" : 13,
       "RUSH__none__safety" : 11,
       "RUSH__none__touchdown" : 13,
@@ -324,6 +326,13 @@
       "none__none__turnover" : 20
     }
   },
+  "formations" : [ {
+    "name" : "off",
+    "playTypes" : {
+      "PASS" : true,
+      "RUSH" : true
+    }
+  } ],
   "playersStatusesPoints" : {
     "bronze" : 1,
     "gold" : 3,

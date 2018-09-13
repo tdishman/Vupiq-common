@@ -145,6 +145,45 @@ export const getScoredBonusesVariants = (
   let playTypeBonuses = playBonusesSystem[playType];
   let basePick = playType;
   let details = playTypeBonuses.details;
+  let nonScoredVariants = {};
+  let formation = playBonusesSystem.formations.filter(
+    formation => formation.playTypes[playType]
+  )[0];
+
+  if (formation && !playBonusesSystem.strict) {
+    delete formation.playTypes[playType];
+    let formationPlayTypes = Object.keys(formation.playTypes);
+    formationPlayTypes.forEach(formationPlayType => {
+      let fPlayTypeBonuses = playBonusesSystem[formationPlayType];
+      let fPlayTypeBonusesDetails = fPlayTypeBonuses.details;
+      let fNonScoredVariants = {};
+      fNonScoredVariants[formationPlayType] = true;
+      for (let i = 0; i < fPlayTypeBonusesDetails.length; i++) {
+        let detail = fPlayTypeBonusesDetails[i];
+        if (PlayPointsBonus.typeIsExists(detail.metric)) {
+          let pickVariantsKeys = Object.keys(fNonScoredVariants);
+          let allVariantsKeys = Object.keys(detail.variants);
+          for (let j = 0; j < allVariantsKeys.length; j++) {
+            let variant = allVariantsKeys[j];
+            for (let k = 0; k < pickVariantsKeys.length; k++) {
+              if (pickVariantsKeys[k].split('__').length + 1 === i + 2) {
+                if (!detail.additional) {
+                  fNonScoredVariants[pickVariantsKeys[k] + '__none'] = true;
+                  fNonScoredVariants[
+                    pickVariantsKeys[k] + '__' + variant
+                  ] = true;
+                }
+              }
+            }
+          }
+        } else {
+          break;
+        }
+      }
+      delete fNonScoredVariants[formationPlayType];
+      nonScoredVariants = Object.assign(nonScoredVariants, fNonScoredVariants);
+    });
+  }
 
   pickVariants[basePick] = playTypeBonuses
     ? playTypeBonuses.points[basePick] || 0
@@ -208,10 +247,24 @@ export const getScoredBonusesVariants = (
                 pickVariants[complexPickKey] > 0
                   ? pickVariants[complexPickKey]
                   : playTypeBonuses.points[pickVariantsKeys[k]] || 0;
-            } else if (!playBonusesSystem.strict && detail.additional) {
-              let complexPickKey = pickVariantsKeys[k] + '__' + variant;
-              pickVariants[complexPickKey] =
-                playTypeBonuses.points[pickVariantsKeys[k]] || 0;
+              if (!playBonusesSystem.strict && detail.additional) {
+                Object.keys(nonScoredVariants).forEach(key => {
+                  let pointsKey = scoredVariant;
+                  for (let m = 0; m < i + 1; m++) {
+                    pointsKey = 'none__' + pointsKey;
+                  }
+                  pickVariants[key + '__' + scoredVariant] =
+                    playTypeBonuses.points[pointsKey] || 0;
+                });
+              }
+            } else {
+              if (!detail.additional) {
+                nonScoredVariants[pickVariantsKeys[k] + '__' + variant] = true;
+              } else if (!playBonusesSystem.strict) {
+                let complexPickKey = pickVariantsKeys[k] + '__' + variant;
+                pickVariants[complexPickKey] =
+                  playTypeBonuses.points[pickVariantsKeys[k]] || 0;
+              }
             }
           }
         }
@@ -220,6 +273,7 @@ export const getScoredBonusesVariants = (
       break;
     }
   }
+  console.log(nonScoredVariants);
   debug(JSON.stringify(pickVariants));
   return pickVariants;
 };

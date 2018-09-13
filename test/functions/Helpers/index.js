@@ -1,5 +1,8 @@
 import * as gameConstants from '../../../src/constants/game';
-import { TYPE_KICKOFF } from '../../../src/constants/play-types';
+import {
+  TYPE_CONVERSION,
+  TYPE_KICKOFF
+} from '../../../src/constants/play-types';
 let playTypeBonuses = require('../../../Docs/play_bonuses');
 let playTypes = require('../../../src/constants/play-types');
 let { TYPE_RUSH, TYPE_TIMEOUT } = require('../../../src/constants/play-types');
@@ -223,6 +226,12 @@ describe('Helpers', () => {
         yardsGained: 5
       };
       let expectedpickVariants = {
+        PASS__long__defscore: 30,
+        PASS__long__touchdown: 10,
+        PASS__none__defscore: 30,
+        PASS__none__touchdown: 10,
+        PASS__short__defscore: 30,
+        PASS__short__touchdown: 10,
         RUSH: 3,
         RUSH__none__none: 3,
         RUSH__long: 11,
@@ -288,7 +297,15 @@ describe('Helpers', () => {
         yardsGained: 4
       };
       let expectedpickVariants = {
+        PASS__long__defscore: 30,
+        PASS__long__touchdown: 10,
+        PASS__none__defscore: 30,
+        PASS__none__touchdown: 10,
+        PASS__short__defscore: 30,
+        PASS__short__touchdown: 10,
         RUSH: 3,
+        RUSH__long__defscore: 30,
+        RUSH__long__touchdown: 10,
         RUSH__short: 5,
         RUSH__short__defscore: 35,
         RUSH__short__touchdown: 15,
@@ -329,6 +346,53 @@ describe('Helpers', () => {
       );
       assert.deepEqual(pickVariants, expectedpickVariants);
     });
+    it('getScoredBonusesVariants should gen multiple variants of score picks for TYPE_CONVERSION and non-strict scheme', () => {
+      playTypeBonuses.strict = false;
+
+      let points = {
+        conversionCategory: 'rush',
+        conversionComplete: true
+      };
+      let expectedpickVariants = {
+        CONVERSION: 0,
+        CONVERSION__none: 0,
+        CONVERSION__none__failed: 0,
+        CONVERSION__none__none: 0,
+        CONVERSION__none__success: 3,
+        CONVERSION__pass__success: 3,
+        CONVERSION__rush: 4,
+        CONVERSION__rush__failed: 4,
+        CONVERSION__rush__success: 7,
+        none__none__success: 3
+      };
+      let pickVariants = getScoredBonusesVariants(
+        TYPE_CONVERSION,
+        points,
+        playTypeBonuses
+      );
+      assert.deepEqual(pickVariants, expectedpickVariants);
+    });
+    it('getScoredBonusesVariants should gen multiple variants of score picks for TYPE_CONVERSION and strict scheme', () => {
+      let points = {
+        conversionCategory: 'rush',
+        conversionComplete: true
+      };
+      let expectedpickVariants = {
+        CONVERSION: 0,
+        CONVERSION__none: 0,
+        CONVERSION__none__none: 0,
+        CONVERSION__none__success: 3,
+        CONVERSION__rush: 4,
+        CONVERSION__rush__success: 7,
+        none__none__success: 3
+      };
+      let pickVariants = getScoredBonusesVariants(
+        TYPE_CONVERSION,
+        points,
+        playTypeBonuses
+      );
+      assert.deepEqual(pickVariants, expectedpickVariants);
+    });
     it('getScoredBonusesVariants should gen multiple variants of score picks for one detail and strict scheme', () => {
       let points = {
         kickoffType: ['returned']
@@ -343,6 +407,46 @@ describe('Helpers', () => {
         playTypeBonuses
       );
       assert.deepEqual(pickVariants, expectedpickVariants);
+    });
+    it('getScoredBonusesVariants should gen multiple variants of score picks for non-strict scheme and dwonType and long', () => {
+      playTypeBonuses.strict = false;
+      let points = {
+        downType: ['touchdown', 'defscore'],
+        yardsGained: 25
+      };
+
+      let expectedpickVariants = {
+        PASS__long__defscore: 30,
+        PASS__long__touchdown: 10,
+        PASS__none__defscore: 30,
+        PASS__none__touchdown: 10,
+        PASS__short__defscore: 30,
+        PASS__short__touchdown: 10,
+        RUSH: 3,
+        RUSH__long: 11,
+        RUSH__long__defscore: 41,
+        RUSH__long__firstdown: 11,
+        RUSH__long__sack: 11,
+        RUSH__long__safety: 11,
+        RUSH__long__touchdown: 21,
+        RUSH__long__turnover: 11,
+        RUSH__none: 3,
+        RUSH__none__defscore: 33,
+        RUSH__none__firstdown: 3,
+        RUSH__none__none: 3,
+        RUSH__none__sack: 3,
+        RUSH__none__safety: 3,
+        RUSH__none__touchdown: 13,
+        RUSH__none__turnover: 3,
+        RUSH__short__defscore: 30,
+        RUSH__short__touchdown: 10,
+        none__none__defscore: 30,
+        none__none__touchdown: 10
+      };
+      assert.deepEqual(
+        getScoredBonusesVariants(TYPE_RUSH, points, playTypeBonuses),
+        expectedpickVariants
+      );
     });
     it('getScoredBonusesVariants should gen multiple variants of score picks for non-strict scheme and downType empty', () => {
       playTypeBonuses.strict = false;
