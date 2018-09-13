@@ -150,9 +150,13 @@ export const getScoredBonusesVariants = (
     formation => formation.playTypes[playType]
   )[0];
 
+  debug(JSON.stringify(playBonusesSystem.formations));
+  debug(JSON.stringify(formation));
+
   if (formation && !playBonusesSystem.strict) {
-    delete formation.playTypes[playType];
-    let formationPlayTypes = Object.keys(formation.playTypes);
+    let playTypes = Object.assign({}, formation.playTypes);
+    delete playTypes[playType];
+    let formationPlayTypes = Object.keys(playTypes);
     formationPlayTypes.forEach(formationPlayType => {
       let fPlayTypeBonuses = playBonusesSystem[formationPlayType];
       let fPlayTypeBonusesDetails = fPlayTypeBonuses.details;
@@ -183,6 +187,7 @@ export const getScoredBonusesVariants = (
       delete fNonScoredVariants[formationPlayType];
       nonScoredVariants = Object.assign(nonScoredVariants, fNonScoredVariants);
     });
+    debug(JSON.stringify(nonScoredVariants));
   }
 
   pickVariants[basePick] = playTypeBonuses
