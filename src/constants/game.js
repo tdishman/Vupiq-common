@@ -24,3 +24,6 @@ export const TRIGGER_CREATE_NEW_GROUP = 'CREATE_NEW';
 export const SEASON_PRE = 'pre';
 export const SEASON_REG = 'reg';
 export const SEASON_PST = 'pst';
+
+export const GROUP_USERS_LIMIT_DEFAULT = 20;
+export const GROUP_USERS_LIMIT_MAX = 100;
